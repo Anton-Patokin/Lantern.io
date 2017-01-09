@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'RoomController@index');
+
+
+Route::post('/make/room', 'RoomController@create_room');
+Route::post('/file/upload', 'FileController@file_upload');
+Route::post('/file/delete ', 'FileController@file_delete');
+Route::post('/website/upload','FileController@website_upload');
+
+Route::get('/{title}','RoomController@show_room');
+Route::post('/password','RoomController@access_room');
