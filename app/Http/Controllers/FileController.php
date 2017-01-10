@@ -23,7 +23,7 @@ class FileController extends Controller
         $rules = array('file' => 'required|mimes:jpeg,gif,bmp,png,jpg|max:8000',); //mimes:jpeg,bmp,png and for max size max:10000
         // doing the validation, passing post data, rules and the messages
         $validator = Validator::make($file, $rules);
-        
+
         if ($validator->fails()) {
             // send back to the page with the input data and errors
 //            return Redirect::to('test')->withInput()->withErrors($validator);
@@ -35,7 +35,7 @@ class FileController extends Controller
             ], 400);
 //            return Response::make($validator->errors()->all(), 400);
         } else {
-            
+
             // checking file is valid.
             if ($request->file('file')->isValid()) {
 
@@ -93,8 +93,6 @@ class FileController extends Controller
 
     public function file_delete(Request $request)
     {
-
-
         $room = Room::where('title', $request->room_title)->first();
         $document = $room->documents()->where('title', $request->document_title)->get()->first();
 
@@ -109,13 +107,13 @@ class FileController extends Controller
                 if (unlink($document->url)) {
                     return Response::json([
                         'error' => false,
-                        'message' => "delete successful",
+                        'message' => "Successfully deleted.",
                         'code' => 200
                     ], 200);
                 } else {
                     return Response::json([
                         'error' => true,
-                        'message' => "Something went wrong tray later one more time",
+                        'message' => "Something went wrong.",
                         'code' => 400
                     ], 400);
                 };
@@ -123,7 +121,7 @@ class FileController extends Controller
                 // if file is frome web than and iets deleted return succes massage
                 return Response::json([
                     'error' => false,
-                    'message' => "delete successful",
+                    'message' => "Successfully deleted.",
                     'code' => 200
                 ], 200);
 
@@ -132,18 +130,16 @@ class FileController extends Controller
             // id request for delete doesn't work return error massage
             return Response::json([
                 'error' => true,
-                'message' => "Something went wrong tray later one more time",
+                'message' => "Something went wrong.",
                 'code' => 400
             ], 400);
         }
 
-        // if room doesn´t found return error massage -> somebody tray to hack you 
+        // if room doesn´t found return error massage -> somebody tray to hack you
         return Response::json([
             'error' => true,
-            'message' => "This file has not been added to aur system",
+            'message' => "No file with that name in this list",
             'code' => 400
         ], 400);
     }
-
-
 }

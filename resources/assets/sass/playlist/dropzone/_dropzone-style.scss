@@ -1,7 +1,7 @@
 
 .dropzone {
     margin: auto;
-    width: 100%;
+    min-width: 40%;
     min-height: 150px;
     border: 2px solid #cccccc;
     background-color: #f1f1f1;
@@ -11,7 +11,7 @@
         font-size: 1.125em;
     }
     p {
-        font-size: 28px;
+        font-size: 1.750em;
         font-weight: bold;
     }
 }

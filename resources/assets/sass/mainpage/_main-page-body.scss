@@ -1,5 +1,5 @@
 .how-page-body {
-    margin-bottom: 300px;
+    margin-bottom: 200px;
 }
 
 .lantern {
@@ -21,11 +21,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .explanation-box {
     &.how {
         width: 33%;
+    }
+    &.how-max {
+        width: 100%;
     }
     &.what {
         width: 800px;
@@ -33,6 +37,10 @@
             margin-top: 2em;
             color: #333333;
             font-weight: 400;
+        }
+        h2 {
+            font-weight: 600;
+            margin: 1em 0;
         }
     }
 
@@ -48,13 +56,16 @@
         display: block;
         margin: auto;
         &.click-start{
-            background: url('/img/sprite-sheet-main-page-exp.png') 400px 0px;
+            background: url('/img/sprite-sheet-main-page-exp.png') 800px 0px;
         }
         &.copy-paste{
-            background: url('/img/sprite-sheet-main-page-exp.png') 800px 0px;
+            background: url('/img/sprite-sheet-main-page-exp.png') 1200px 0px;
         }
         &.drag-drop{
             background: url('/img/sprite-sheet-main-page-exp.png') 0px 0px;
+        }
+        &.projector{
+            background: url('/img/sprite-sheet-main-page-exp.png') 400px 0px;
         }
     }
 }

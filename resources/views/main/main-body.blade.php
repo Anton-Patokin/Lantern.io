@@ -4,7 +4,11 @@
         <div class="explanation-box what">
             <h1 class="sub-title-body what">A simple sharing tool.</h1>
             <img src="/img/banner-what.jpg" alt="">
-            <p><span class="lantern">lantern.<span class="text-orange">io</span></span> is a tool for showing and sharing pictures with each other. The name originates from Laterna Magica, or Magic Lantern. This was the grandfather of the current projectors we have at school, work and parties.</p>
+            <p><span class="lantern">lantern.<span class="text-orange">io</span></span> is a tool for showing and sharing pictures with each other. The name originates from Laterna Magica, or Magic Lantern. The grandfather of the current projectors.
+            <br>
+            What we try to achieve with this tool is making <strong>your</strong> life easier.</p>
+            <h2>How you ask?</h2>
+            <p>Well, simply by turning your computer into <strong>a central point for collecting and projecting</strong> all the images people want to share or show to the others. Connect your laptop to a projector and start the slide show. No more hassle with cables, incompatible connectors, millions of usb drives and most of all <strong>no more annoying waiting time.</strong></p>
         </div>
     </div>
 </section>
@@ -26,6 +30,11 @@
             <h1 class="sub-title-body">Start dragging and dropping</h1>
             <span class="exp-img drag-drop"></span>
             <p>Just drag and drop your images to the dropzone.</p>
+        </div>
+        <div class="explanation-box how-max">
+            <h1 class="sub-title-body">Connect to a projector</h1>
+            <span class="exp-img projector"></span>
+            <p>When everyone is done dropping his or her images you are ready to rock 'n' roll.</p>
         </div>
     </div>
 </section>

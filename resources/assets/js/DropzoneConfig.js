@@ -1,29 +1,39 @@
-var photo_counter = 0;
 Dropzone.options.realDropzone = {
-    uploadMultiple: false, // ceep this false -> outher way conflict on server side 'Paraplu'
+    paramName: "file",
+    uploadMultiple: false, // keep this false -> other way conflict on server side 'Paraplu'
     parallelUploads: 10,
     maxFilesize: 25,
-    previewsContainer: '#dropzonePreview',
-    // previewTemplate: document.querySelector('#preview-template').innerHTML,
+    dictFileTooBig: 'Image is bigger than 25MB',
+    acceptedFiles: 'image/*',
     addRemoveLinks: true,
-    dictRemoveFile: 'Remove',
-    dictFileTooBig: 'Image is bigger than 2MB',
-
+    headers: {
+        'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
+    },
+    thumbnail: function(file, dataUrl) {
+        if (file.previewElement) {
+            file.previewElement.classList.remove("dz-file-preview");
+            var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+            for (var i = 0; i < images.length; i++) {
+                var thumbnailElement = images[i];
+                thumbnailElement.alt = file.name;
+                thumbnailElement.src = dataUrl;
+            }
+            setTimeout(function() { file.previewElement.classList.add("dz-image-preview"); }, 1);
+        }
+    },
     // Dropzone setup
     init: function () {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for( var i=0; i < 5; i++ ) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-
+        var roomTitle = window.location.pathname.split('/');
+        roomTitle = roomTitle[1];
         this.on("removedfile", function (file) {
             $.ajax({
                 type: 'POST',
                 url: '/file/delete',
-                data: {title: file.filename, id: file.id, _token: document.getElementById("csrf-token").value},
+                data: {room_title: roomTitle, title: file.filename, id: file.id},
                 dataType: 'html',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function (data) {
                     var rep = JSON.parse(data);
                     if (rep.code == 200) {
@@ -39,8 +49,15 @@ Dropzone.options.realDropzone = {
 
         });
     },
-    renameFilename: function (file) {
-        return file.filename;
+    renameFilename: function (filename) {
+        var randomString = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( var i=0; i < 10; i++ ) {
+            randomString += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        return randomString + '_' + filename;
     },
     error: function (file, response) {
         if ($.type(response) === "string")
@@ -56,21 +73,9 @@ Dropzone.options.realDropzone = {
         }
         return _results;
     },
-    accept: function (file, done) {
-        var re = /(?:\.([^.]+))?$/;
-        var ext = re.exec(file.name)[1];
-        ext = ext.toUpperCase();
-        if (ext == "JPG" || ext == "JPEG" || ext == "PNG" || ext == "GIF" || ext == "BMP" || ext == "PDF") {
-            done();
-        } else {
-            done("Please select only supported files.");
-        }
-    },
     success: function (file, done) {
-        photo_counter++;
         file.filename = done.file_name;
         file.id = done.file_id;
         console.log(file.filename);
-        $("#photoCounter").text("(" + photo_counter + ")");
     }
 }

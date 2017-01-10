@@ -8,3 +8,4 @@ Homestead.yaml
 .env
 /public/js/app.js
 /public/css/app.css
+/public/uploads
