@@ -8,7 +8,9 @@
     {{Form::file('file')}}
     {{Form::text('title',$room->title,array('hidden'=>'hidden'))}}
     {{Form::submit('Send',['class'=>'btn btn-default'])}}
+
     {{Form::close()}}
 
+    <a href="{{url('/download/list/'.$room->title)}}">zip</a>
     @include('room.show_files')
 @endsection

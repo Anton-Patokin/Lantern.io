@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,//custom
+        'Chumper\Zipper\ZipperServiceProvider', //custom
 
         /*
          * Package Service Providers...
@@ -229,6 +230,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,//custom
         'Html' => Collective\Html\HtmlFacade::class,//custom
         'Uuid' => Webpatser\Uuid\Uuid::class,//custom
+        'Zipper' => 'Chumper\Zipper\Zipper', //custom
     ],
 
 ];

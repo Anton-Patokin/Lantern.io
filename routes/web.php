@@ -22,3 +22,4 @@ Route::post('/website/upload','FileController@website_upload');
 Route::get('/{title}','RoomController@show_room');
 Route::post('/password','RoomController@access_room');
 Route::get('/list/{title}','AccessController@index');
+Route::get('/download/list/{title}','RoomController@download_room');

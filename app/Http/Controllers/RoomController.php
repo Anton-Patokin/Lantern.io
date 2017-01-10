@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Room;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
+use Zipper;
 
 class RoomController extends Controller
 {
@@ -75,4 +76,25 @@ class RoomController extends Controller
         Session::put('error', 'List not found');
         return redirect('/');
     }
+
+    public function download_room($room)
+    {
+        $find_room = Room::where('title', $room)->first();
+            $files = glob(public_path('uploads\\' . $find_room->title . '\*'));
+            $path_name = 'uploads\\' . $find_room->title . '\\' . $find_room->title . '.zip';
+
+            if (file_exists($path_name)) {
+                return response()->download(public_path($path_name))->deleteFileAfterSend(true);
+            } else {
+                if (count($files) == 0) {
+                    return redirect('/dashboard');
+                }
+                Zipper::make($path_name)->add($files);
+                return redirect('/download/list/' . $find_room->title);
+            }
+
+        Session::put('error', 'Something went wrong');
+        return redirect('/'.$find_room->title);
+    }
+
 }
