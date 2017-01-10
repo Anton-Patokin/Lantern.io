@@ -1,4 +1,6 @@
-<h1>show files</h1>
+<playlist></playlist>
+
+{{-- <h1>show files</h1>
 @foreach($documents as $document)
     <div class="col-md-12">
         {{$document->title}}
@@ -11,4 +13,4 @@
 
     </div>
 </div>
-@endforeach
+@endforeach --}}

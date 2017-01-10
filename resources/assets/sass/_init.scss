@@ -18,3 +18,21 @@ input:focus {
     outline: 0;
     box-shadow: 0 0 3pt 2pt rgba(215, 215, 215, 0.4);
 }
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+}
+*::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background: rgba(0,0,0,0.4);
+}
+*::-webkit-scrollbar-thumb:hover{
+	background: rgba(0,0,0,0.6);
+}
+*::-webkit-scrollbar-thumb:active{
+	background: rgba(0,0,0,.9);
+}

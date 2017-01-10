@@ -5,6 +5,7 @@
 
     <div class="playlist-body">
         @include('room.room-dropzone')
+        @include('room.playlist-list')
     </div>
 
     {{-- <div class="container-fluid">

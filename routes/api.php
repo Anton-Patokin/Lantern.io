@@ -17,3 +17,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::get('/{title}/get-files', 'RoomController@get_documents_room');

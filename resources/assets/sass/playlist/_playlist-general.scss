@@ -6,9 +6,10 @@
 }
 
 .playlist-body {
-    height: 60vh;
+    height: 60%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 }
 

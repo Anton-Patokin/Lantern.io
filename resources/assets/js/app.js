@@ -25,6 +25,7 @@ $(document).ready(function () {
  */
 
 Vue.component("MainPage", require('./components/MainPage.vue'));
+Vue.component("Playlist", require('./components/playlist/Playlist.vue'));
 Vue.component("MainFooter", require('./components/Footer.vue'));
 
 const app = new Vue({

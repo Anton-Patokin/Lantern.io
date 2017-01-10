@@ -1,8 +1,9 @@
-{{ Form::open(array('url' => 'file/upload',
+<div class="dropzone-container">
+    {{ Form::open(array('url' => 'file/upload',
     'method' => 'post',
     'class' => 'dropzone needsclick dz-clickable',
     'id'=>'realDropzone'))
-}}
+    }}
     {{ Form::text('title', $room->title, array('hidden'=>'hidden')) }}
 
     <div class="dz-message">
@@ -18,4 +19,5 @@
     <div class="fallback">
         <input name="file" type="file" multiple/>
     </div>
-{{ Form::close() }}
+    {{ Form::close() }}
+</div>

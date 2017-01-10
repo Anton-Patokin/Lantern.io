@@ -60,7 +60,23 @@ class RoomController extends Controller
         Session::put('error', 'List not found!');
         return redirect('/');
     }
-    
+
+    public function get_documents_room ($title) {
+        $url = $title;
+        $room = Room::where('title', $url)->get()->first();
+
+        if ($room) {
+            $files = $room->documents()->get();
+
+            return response()->json($files);
+        }
+        else {
+            return response()->json([
+                'error' => 'No files in this playlist.'
+            ], 400);
+        }
+    }
+
     public function access_room(Request $request){
 
         $room = Room::where('title',$request->title)->get()->first();

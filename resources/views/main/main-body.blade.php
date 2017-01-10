@@ -7,7 +7,7 @@
             <p><span class="lantern">lantern.<span class="text-orange">io</span></span> is a tool for showing and sharing pictures with each other. The name originates from Laterna Magica, or Magic Lantern. The grandfather of the current projectors.
             <br>
             What we try to achieve with this tool is making <strong>your</strong> life easier.</p>
-            <h2>How you ask?</h2>
+            <h2>But, how?</h2>
             <p>Well, simply by turning your computer into <strong>a central point for collecting and projecting</strong> all the images people want to share or show to the others. Connect your laptop to a projector and start the slide show. No more hassle with cables, incompatible connectors, millions of usb drives and most of all <strong>no more annoying waiting time.</strong></p>
         </div>
     </div>
