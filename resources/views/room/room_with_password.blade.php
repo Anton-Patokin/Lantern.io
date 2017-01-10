@@ -29,7 +29,7 @@
                 <p>When you fill in the passkey correctly you will gain full access to the playlist.</p>
             </div>
         @else
-            @include('room.playlist-list');
+            @include('room.playlist-list')
         @endif
 
 

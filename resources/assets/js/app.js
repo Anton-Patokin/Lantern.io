@@ -26,8 +26,15 @@ $(document).ready(function () {
 
 Vue.component("MainPage", require('./components/MainPage.vue'));
 Vue.component("Playlist", require('./components/playlist/Playlist.vue'));
+Vue.component("SlideShow", require('./components/playlist/SlideShow.vue'));
 Vue.component("MainFooter", require('./components/Footer.vue'));
 
 const app = new Vue({
     el: '#root',
 });
+
+
+Echo.channel('orders')
+    .listen('OrderShipped', (e) => {
+        console.log(e.order.name);
+    });

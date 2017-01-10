@@ -26,6 +26,7 @@ Dropzone.options.realDropzone = {
         var roomTitle = window.location.pathname.split('/');
         roomTitle = roomTitle[1];
         this.on("removedfile", function (file) {
+            console.log(file.filename);
             $.ajax({
                 type: 'POST',
                 url: '/file/delete',

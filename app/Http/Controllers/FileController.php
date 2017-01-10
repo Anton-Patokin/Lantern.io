@@ -94,7 +94,7 @@ class FileController extends Controller
     public function file_delete(Request $request)
     {
         $room = Room::where('title', $request->room_title)->first();
-        $document = $room->documents()->where('title', $request->document_title)->get()->first();
+        $document = $room->documents()->where('title', $request->title)->get()->first();
 
         if ($document != null) {
 

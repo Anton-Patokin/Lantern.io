@@ -9,6 +9,7 @@
         "chumper/zipper": "^0.7.0",
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "^5.2.0",
+        "pusher/pusher-php-server": "^2.6",
         "webpatser/laravel-uuid": "2.*"
     },
     "require-dev": {
