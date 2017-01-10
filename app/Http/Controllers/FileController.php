@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Room;
+use Validator;
+use Redirect;
+use Session;
+use App\Document;
+use Response;
+use File;
+use Illuminate\Support\Facades\Hash;
 
 
 class FileController extends Controller
 {
     public function file_upload(Request $request)
     {
-
 //      get file from the post request
         $file = array('file' => $request->file('file'));
         // setting up rules
         $rules = array('file' => 'required|mimes:jpeg,gif,bmp,png,pdf|max:8000',); //mimes:jpeg,bmp,png and for max size max:10000
         // doing the validation, passing post data, rules and the messages
         $validator = Validator::make($file, $rules);
+        echo 'valistaion start  ->';
         if ($validator->fails()) {
             // send back to the page with the input data and errors
 //            return Redirect::to('test')->withInput()->withErrors($validator);
@@ -28,9 +35,10 @@ class FileController extends Controller
             ], 400);
 //            return Response::make($validator->errors()->all(), 400);
         } else {
+            echo 'valistaion success  ->';
             // checking file is valid.
             if ($request->file('file')->isValid()) {
-
+                echo 'file valid  ->';
 
                 //check of the room ewist
                 $room = Room::where('title', $request->title)->first();
@@ -42,8 +50,8 @@ class FileController extends Controller
                 $file = $request->file('file');
                 $destinationPath = 'uploads/' . $room->title; // upload path + make folder with unic room
                 //set unic name fileName + name + last_name + unic time
-                $user = Auth::user();
-                $fileName = $user->name . "-" . $user->last_name . "-" . time() . "-" . $file->getClientOriginalName();
+
+                $fileName = time() . "-" . $file->getClientOriginalName();
 
                 $extension = $file->getClientOriginalExtension(); // getting image extension
 
@@ -55,7 +63,6 @@ class FileController extends Controller
                     $document->title = $file->getClientOriginalName();
                     $document->url = '/' . $destinationPath . "/" . $fileName;
                     $document->type = $extension;
-                    $document->user_id = Auth::id();
                     $document->room_id = $room->id;
 
                     //if document is uoloaded and DB is saved then return success
@@ -82,4 +89,60 @@ class FileController extends Controller
         }
         return Response::json('error', 400);
     }
+
+
+    public function file_delete(Request $request)
+    {
+
+        $document = Document::where('title',$request->document_title)->get()->first();
+        $room = Room::where('title', $request->room_title)->first();
+
+        if ($document != null) {
+            
+            $this->delete($document);
+
+            // id request for delete doesn't work return error massage
+            return Response::json([
+                'error' => true,
+                'message' => "Something went wrong tray later one more time",
+                'code' => 400
+            ], 400);
+        }
+
+        // if room doesn´t found return error massage -> somebody tray to hack you 
+        return Response::json([
+            'error' => true,
+            'message' => "This file has not been added to aur system",
+            'code' => 400
+        ], 400);
+    }
+    
+    public  function delete($document){
+        if ($document->delete()) {
+            //ther are two tipes of files fisyc and web if iets fysic delete on server outher way delete from DB only
+
+            if (File::delete($document->url)) {
+                return Response::json([
+                    'error' => false,
+                    'message' => "delete successful",
+                    'code' => 200
+                ], 200);
+            } else {
+                return Response::json([
+                    'error' => true,
+                    'message' => "Something went wrong tray later one more time",
+                    'code' => 400
+                ], 400);
+            };
+
+            // if file is frome web than and iets deleted return succes massage
+            return Response::json([
+                'error' => false,
+                'message' => "delete successful",
+                'code' => 200
+            ], 200);
+
+        };
+    }
+
 }

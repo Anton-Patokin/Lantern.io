@@ -24,15 +24,7 @@ class AccesRoom
         $room = Room::where('title', $request->route('title'))->first();
         if ($room) {
             if (isset($room->password) && $room->password != "") {
-
-                if (Hash::check($request->cookie('access_key'), $room->password)) {
-                    $cookie = Cookie::forever('access',1);
-                    return redirect('/list/'.$room->title)->withCookie($cookie);
-                } else {
-                    
-                    $cookie = Cookie::forever('access',0);
-                    return redirect('/list/'.$room->title)->withCookie($cookie);
-                }
+                    return redirect('/list/'.$room->title);
             };
             return $next($request);
         }

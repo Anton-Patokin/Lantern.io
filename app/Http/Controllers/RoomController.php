@@ -52,7 +52,7 @@ class RoomController extends Controller
         $room = Room::where('title', $url)->get()->first();
         if ($room) {
             $files = $room->documents()->get();
-            return view('room/room_without_password')->with('documents',$files);
+            return view('room/room_without_password')->with('documents',$files)->with('room',$room);
         }
         Session::put('error', 'List not found!');
         return redirect('/');
