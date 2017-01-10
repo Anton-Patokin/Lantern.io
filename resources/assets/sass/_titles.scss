@@ -11,6 +11,13 @@
 .playlist-con-title {
     font-size: 1.5em;
     color: #000000;
+    margin-bottom: 1em;
+}
+
+
+.playlist-con-sub-title {
+    font-size: 1em;
+    font-weight: 400;
     margin-bottom: 2.25em;
 }
 
@@ -20,6 +27,9 @@
 }
 
 .head-title-body {
+    &.what {
+
+    }
     text-align: center;
     font-size: $head-title-size;
     font-weight: bold;
@@ -27,6 +37,10 @@
 }
 
 .sub-title-body {
+    &.what {
+        margin-top: 1em;
+        margin-bottom: 0.8em;
+    }
     text-align: center;
     font-size: 1.875em;
     font-weight: 500;

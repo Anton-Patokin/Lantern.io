@@ -9,6 +9,9 @@
     @include('hero.playlist-room-hero')
 
     <div class="playlist-body">
+        <div class="explanation">
+            <p></p>
+        </div>
         @include('room.room-dropzone')
         @if(!isset($documents))
             {{Form::open(['url' => '/password'])}}
@@ -16,7 +19,6 @@
                 <div class="playlist-password-wrap">
                     <label for="password">passkey:</label>
                     <div class="input-wrap">
-                        <span class="flame"></span>
                         <input id="password" type="password" name="password" value="">
                     </div>
                     {{Form::submit('Send',['class'=>'btn btn-default'])}}
@@ -24,7 +26,7 @@
 
             {{Form::close()}}
             <div class="explanation-password">
-                <p></p>
+                <p>When you fill in the passkey correctly you will gain full access to the playlist.</p>
             </div>
         @else
             @include('room.show_files');
@@ -32,8 +34,4 @@
 
 
     </div>
-@endsection
-
-@section('javascript')
-    <script src="/js/dropzone.js" charset="utf-8"></script>
 @endsection

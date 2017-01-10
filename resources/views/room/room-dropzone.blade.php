@@ -1,13 +1,16 @@
 <div>
     <div id="error"></div>
-
     {{ Form::open(array('url' => 'file/upload', 'method' => 'post', 'class' => 'dropzone','id'=>'realDropzone')) }}
         {{ Form::text('title', $room->title, array('hidden'=>'hidden')) }}
 
         <div class="dz-message">
-            Drop your amazing files here! <span id="photoCounter"></span>
+            <div class="title-dropzone">
+                <span class="flame"></span>
+                <h1>Drop it like it's hot!</h1>
+            </div>
+            <span id="photoCounter"></span>
             <br />
-            <span class="note">(Your images and pdfs are uploaded as soon as you drop them. Max. size 8MB)</span>
+            <span class="note">(Your images are uploaded as soon as you drop them. Max. size 8MB)</span>
         </div>
 
         {{-- if user has js disabled --}}

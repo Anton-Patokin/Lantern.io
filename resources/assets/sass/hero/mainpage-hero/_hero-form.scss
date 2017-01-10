@@ -5,6 +5,7 @@
     background-color: #ffffff;
     border-radius: 10px;
     padding: 2.188em;
+    text-align: center;
 }
 
 .playlist-form {
@@ -34,7 +35,7 @@
         cursor: pointer;
         position: absolute;
         top: 50%;
-        right: -25px;
+        left: -20px;
         transform: translateY(-50%);
     }
     label {

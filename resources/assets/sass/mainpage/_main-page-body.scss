@@ -1,22 +1,46 @@
-.main-page-body {
+.how-page-body {
     margin-bottom: 300px;
 }
 
+.lantern {
+    font-weight: bold;
+    padding: 1px 5px;
+    background-color: #000000;
+    color: #ffffff;
+}
+
 .explanation-container {
-    margin-top: 80px;
+    &.what {
+        justify-content: center;
+    }
+    &.how {
+        margin-top: 5em;
+        justify-content: space-between;
+    }
     padding: 0px 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
 }
 
 .explanation-box {
-    width: 33%;
+    &.how {
+        width: 33%;
+    }
+    &.what {
+        width: 800px;
+        p {
+            margin-top: 2em;
+            color: #333333;
+            font-weight: 400;
+        }
+    }
+
     text-align: center;
     p {
         font-size: 1.125em;
         font-weight: 600;
+        line-height: 1.5em;
     }
     .exp-img {
         width: 400px;
@@ -32,22 +56,5 @@
         &.drag-drop{
             background: url('/img/sprite-sheet-main-page-exp.png') 0px 0px;
         }
-    }
-}
-
-.footer {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    background-color: #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .flame {
-        margin-right: 5px;
-    }
-
-    p {
-        color: #afafaf;
     }
 }
