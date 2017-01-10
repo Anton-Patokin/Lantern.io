@@ -1,7 +1,6 @@
 .playlist-form-container {
     color: #000000;
     width: 475px;
-    height: 305px;
     margin: auto;
     background-color: #ffffff;
     border-radius: 10px;
@@ -27,12 +26,15 @@
 }
 
 .link-wrap {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     .flame {
         cursor: pointer;
         position: absolute;
         top: 50%;
-        right: 5px;
+        right: -25px;
         transform: translateY(-50%);
     }
     label {
@@ -48,18 +50,33 @@
 
 .password-wrap {
     margin-bottom: 30px;
+    opacity: 0.3;
+    transition: 0.2s opacity ease-in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &.active {
+        opacity: 1;
+    }
+    &:hover {
+        opacity: 1;
+    }
+    input:focus .password-wrap{
+        opacity: 1;
+    }
     label {
         font-size: 18px;
         font-weight: 500;
         display: inline-block;
     }
     input {
-        width: 166px;
+        width: 140px;
         display: inline-block;
     }
     .disclaimer-star {
         position: absolute;
-        right: -5px;
+        top: 0;
+        right: -15px;
     }
 }
 

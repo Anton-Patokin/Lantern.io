@@ -19,13 +19,13 @@
                     <input id="title" type="text" name="title" value="{{$url}}" autofocus>
                 </div>
                 <div class="password-wrap">
-                    <label for="password">password:</label>
+                    <label for="password">passkey:</label>
                     <input id="password" type="password" name="password" value="" placeholder="optional">
                     <span class="disclaimer-star">*</span>
                 </div>
                 <div class="disclaimer">
                     <span class="disclaimer-star">*</span>
-                    <p>creating a playlist with a password gives only YOU delete rights,<br> if you don’t put in a password everyone can delete files.</p>
+                    <p>creating a playlist with a passkey gives only YOU delete rights,<br> if you don’t put in a passkey everyone can delete files.</p>
                 </div>
                 <div class="start-button-wrap">
                     <button class="btn btn-default" id="start-new-list" type="submit" name="start-new-list">start</button>

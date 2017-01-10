@@ -588,7 +588,6 @@ input:focus {
 .playlist-form-container {
   color: #000000;
   width: 475px;
-  height: 305px;
   margin: auto;
   background-color: #ffffff;
   border-radius: 10px;
@@ -615,14 +614,20 @@ input:focus {
 }
 
 .link-wrap {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
 }
 
 .link-wrap .flame {
   cursor: pointer;
   position: absolute;
   top: 50%;
-  right: 5px;
+  right: -25px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
@@ -640,6 +645,27 @@ input:focus {
 
 .password-wrap {
   margin-bottom: 30px;
+  opacity: 0.3;
+  -webkit-transition: 0.2s opacity ease-in;
+  transition: 0.2s opacity ease-in;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.password-wrap.active {
+  opacity: 1;
+}
+
+.password-wrap:hover {
+  opacity: 1;
+}
+
+.password-wrap input:focus .password-wrap {
+  opacity: 1;
 }
 
 .password-wrap label {
@@ -649,13 +675,14 @@ input:focus {
 }
 
 .password-wrap input {
-  width: 166px;
+  width: 140px;
   display: inline-block;
 }
 
 .password-wrap .disclaimer-star {
   position: absolute;
-  right: -5px;
+  top: 0;
+  right: -15px;
 }
 
 .disclaimer {
