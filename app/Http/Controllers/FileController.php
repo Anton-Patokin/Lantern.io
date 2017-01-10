@@ -38,7 +38,7 @@ class FileController extends Controller
             
             // checking file is valid.
             if ($request->file('file')->isValid()) {
-                
+
 
                 //check of the room ewist
                 $room = Room::where('title', $request->title)->first();
@@ -51,7 +51,7 @@ class FileController extends Controller
                 $destinationPath = 'uploads/' . $room->title; // upload path + make folder with unic room
                 //set unic name fileName + name + last_name + unic time
 
-                $fileName = time() . "-" . $file->getClientOriginalName();
+                $fileName = $file->getClientOriginalName();
 
                 $extension = $file->getClientOriginalExtension(); // getting image extension
 
