@@ -1,0 +1,37 @@
+.flame {
+    height: 26px;
+    width: 18px;
+    background: url('/img/flame_img.png');
+    display: block;
+}
+
+.hero-wrap {
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0.25) 34%,rgba(255,255,255,0) 100%), url('/img/hero_img.jpg');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+}
+
+.hero-container {
+    width: 1200px;
+    height: 700px;
+    margin: auto;
+    color: $hero-color;
+    display: flex;
+    flex-direction: column;
+}
+
+.slogan-wrap {
+    margin-top: 165px;
+}
+
+.logo-wrap {
+    position: absolute;
+    top: 20px;
+    img {
+        width: 165px;
+    }
+    a {
+        display: block;
+    }
+}

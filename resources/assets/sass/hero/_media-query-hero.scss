@@ -1,0 +1,36 @@
+@media screen and (max-width: 1220px) and (min-width: 960px) {
+    .hero-container {
+        width: 960px;
+    }
+}
+
+@media screen and (max-width: 960px) and (min-width: 768px) {
+    .hero-container {
+        width: 768px;
+    }
+}
+
+@media screen and (max-width: 475px) and (min-width: 320px) {
+    .hero-container {
+        width: 100%;
+    }
+    .logo-wrap {
+        left: 5px;
+    }
+
+    .playlist-form-container {
+        width: 70%;
+    }
+
+    .playlist-form {
+        width: 95%;
+    }
+
+    .link-wrap {
+        width: 100%;;
+        input{
+            width: 70%;
+        }
+    }
+
+}

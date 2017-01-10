@@ -1,0 +1,13 @@
+.btn {
+    width: 200px;
+    border: none;
+    padding: 15px 0px;
+    cursor: pointer;
+}
+
+.btn-default {
+    background-color: $orange-color;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}

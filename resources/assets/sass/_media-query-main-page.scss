@@ -1,0 +1,19 @@
+@media screen and (max-width: 1285px) and (min-width: 960px) {
+    .explanation-box {
+        width: 50%;
+        margin-bottom: 1.75em;
+    }
+    .explanation-container {
+        flex-wrap: wrap;
+    }
+}
+
+
+@media screen and (max-width: 960px) and (min-width: 768px) {
+    .explanation-container {
+        flex-direction: column;
+    }
+    .explanation-box {
+        width: 100%;
+    }
+}
