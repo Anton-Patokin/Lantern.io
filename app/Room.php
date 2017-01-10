@@ -10,9 +10,9 @@ class Room extends Model
     use SoftDeletes;
 
 
-    public function files()
+    public function documents()
     {
-        return $this->hasMany('App\File');
+        return $this->hasMany('App\Document');
     }
 
     protected $dates = ['deleted_at'];

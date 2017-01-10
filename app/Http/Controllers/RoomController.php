@@ -15,12 +15,16 @@ class RoomController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('accessRoom');
+//        $this->middleware('accessRoom')->only(['show_room']);
+        $this->middleware('accessRoom',['only' => 'show_room']);
+    }
+
+    public function access($room){
+        return 'okey';
     }
 
     public function index()
     {
-        return Room::find(1)->files()->get();
         $uuid = explode('-', Uuid::generate());
 
         $uuid = $uuid[2] . $uuid[1] . $uuid[4] . $uuid[0];
@@ -39,36 +43,34 @@ class RoomController extends Controller
         $room->title = $request->title;
         $room->password = $request->password ==""?null:Hash::make($request->password);
         $room->save();
-        return redirect('/' . $room->title);
+        $cookie = Cookie::forever('access_key',$request->password);
+        return redirect('/' . $room->title)->withCookie($cookie);
     }
 
     public function show_room($url)
     {
         $room = Room::where('title', $url)->get()->first();
         if ($room) {
-            if (isset($room->password)&&$room->password != "") {
-                return view('room/room')->with('access','denied')->with('room',$room);
-            };
-            return view('room/room');
+            $files = $room->documents()->get();
+            return view('room/room_without_password')->with('documents',$files);
         }
-        Session::put('error', 'Room not found!');
+        Session::put('error', 'List not found!');
         return redirect('/');
-
     }
+    
     public function access_room(Request $request){
 
-
         $room = Room::where('title',$request->title)->get()->first();
-        if(Hash::check($request->password, $room->password )){
-
-            $cookie = Cookie::forever('acceptCookie','okey');
-
-
-            return view('room/room')->with('access','denied')->with('room',$room)->withCookie($cookie);
-        }else{
-            Session::put('error', 'Wrong password!');
+        if($room){
+            if(Hash::check($request->password, $room->password )){
+                $cookie = Cookie::forever('access_key',$request->password);
+                return redirect('/'.$room->title)->withCookie($cookie);
+            }else{
+                Session::put('error', 'Wrong password!');
+                return redirect('/'.$room->title);
+            };
         };
-
-        return '';
+        Session::put('error', 'List not found');
+        return redirect('/');
     }
 }
