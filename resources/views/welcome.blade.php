@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('content')
-    <div class="container-fluid">
+    <main-page></main-page>
+    {{-- <div class="container-fluid">
         <p>uuid generator 36^28 mogelijke combinaties</p>
         <h1>url : {{$url}}</h1>
         @if(Session::has('error'))
@@ -38,5 +39,5 @@
         </div>
 
 
-    </div>
+    </div> --}}
 @endsection

@@ -1,6 +1,8 @@
 @extends('layout.app')
 @section('content')
-    <h1>hallo</h1>
+    
+
+    {{-- <h1>hallo</h1>
     <div class="container-fluid">
         @if(Session::has('error'))
             <h1>{{ Session::get('error')}}</h1>
@@ -17,5 +19,5 @@
         @else
             @include('room.show_files')
         @endif
-    </div>
+    </div> --}}
 @endsection

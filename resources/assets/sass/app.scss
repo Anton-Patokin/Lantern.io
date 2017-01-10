@@ -1,9 +1,16 @@
+@import 'node_modules/normalize-scss/sass/normalize/import-now';
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import 'variables';
+@import 'init';
+@import 'text-colors';
+@import 'titles';
+@import 'buttons';
 
-// Variables
-@import "variables";
+@import 'hero/hero';
+@import 'hero/hero-form';
+@import 'hero/media-query-hero';
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import 'main-page-body';
+@import 'media-query-main-page';
+
+@import 'playlist/playlist-general';
