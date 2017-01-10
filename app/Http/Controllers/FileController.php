@@ -20,10 +20,10 @@ class FileController extends Controller
 //      get file from the post request
         $file = array('file' => $request->file('file'));
         // setting up rules
-        $rules = array('file' => 'required|mimes:jpeg,gif,bmp,png,pdf|max:8000',); //mimes:jpeg,bmp,png and for max size max:10000
+        $rules = array('file' => 'required|mimes:jpeg,gif,bmp,png,jpg|max:8000',); //mimes:jpeg,bmp,png and for max size max:10000
         // doing the validation, passing post data, rules and the messages
         $validator = Validator::make($file, $rules);
-        echo 'valistaion start  ->';
+        
         if ($validator->fails()) {
             // send back to the page with the input data and errors
 //            return Redirect::to('test')->withInput()->withErrors($validator);
@@ -35,10 +35,10 @@ class FileController extends Controller
             ], 400);
 //            return Response::make($validator->errors()->all(), 400);
         } else {
-            echo 'valistaion success  ->';
+            
             // checking file is valid.
             if ($request->file('file')->isValid()) {
-                echo 'file valid  ->';
+                
 
                 //check of the room ewist
                 $room = Room::where('title', $request->title)->first();

@@ -20,7 +20,7 @@ class AccesRoom
      */
     public function handle($request, Closure $next)
     {
-        echo 'okey';
+      
         $room = Room::where('title', $request->route('title'))->first();
         if ($room) {
             if (isset($room->password) && $room->password != "") {
