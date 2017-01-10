@@ -61,7 +61,7 @@ class FileController extends Controller
 //                    only save document info after upload is done
                     $document = new Document();
                     $document->title = $file->getClientOriginalName();
-                    $document->url = '/' . $destinationPath . "/" . $fileName;
+                    $document->url =  $destinationPath . "/" . $fileName;
                     $document->type = $extension;
                     $document->room_id = $room->id;
 
@@ -94,12 +94,40 @@ class FileController extends Controller
     public function file_delete(Request $request)
     {
 
-        $document = Document::where('title',$request->document_title)->get()->first();
+
         $room = Room::where('title', $request->room_title)->first();
+        $document = $room->documents()->where('title', $request->document_title)->get()->first();
 
         if ($document != null) {
-            
-            $this->delete($document);
+
+
+//    return $path = $document->url;
+
+
+            if ($document->delete()) {
+                //ther are two tipes of files fisyc and web if iets fysic delete on server outher way delete from DB only
+                if (unlink($document->url)) {
+                    return Response::json([
+                        'error' => false,
+                        'message' => "delete successful",
+                        'code' => 200
+                    ], 200);
+                } else {
+                    return Response::json([
+                        'error' => true,
+                        'message' => "Something went wrong tray later one more time",
+                        'code' => 400
+                    ], 400);
+                };
+
+                // if file is frome web than and iets deleted return succes massage
+                return Response::json([
+                    'error' => false,
+                    'message' => "delete successful",
+                    'code' => 200
+                ], 200);
+
+            };
 
             // id request for delete doesn't work return error massage
             return Response::json([
@@ -116,33 +144,6 @@ class FileController extends Controller
             'code' => 400
         ], 400);
     }
-    
-    public  function delete($document){
-        if ($document->delete()) {
-            //ther are two tipes of files fisyc and web if iets fysic delete on server outher way delete from DB only
 
-            if (File::delete($document->url)) {
-                return Response::json([
-                    'error' => false,
-                    'message' => "delete successful",
-                    'code' => 200
-                ], 200);
-            } else {
-                return Response::json([
-                    'error' => true,
-                    'message' => "Something went wrong tray later one more time",
-                    'code' => 400
-                ], 400);
-            };
-
-            // if file is frome web than and iets deleted return succes massage
-            return Response::json([
-                'error' => false,
-                'message' => "delete successful",
-                'code' => 200
-            ], 200);
-
-        };
-    }
 
 }

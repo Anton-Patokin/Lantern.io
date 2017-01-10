@@ -27,7 +27,8 @@ class RoomController extends Controller
     {
         $uuid = explode('-', Uuid::generate());
 
-        $uuid = $uuid[2] . $uuid[1] . $uuid[4] . $uuid[0];
+
+         $uuid = $uuid[0] . $uuid[1];
 
         return view('welcome')->with('url', $uuid);
     }
@@ -52,6 +53,7 @@ class RoomController extends Controller
         $room = Room::where('title', $url)->get()->first();
         if ($room) {
             $files = $room->documents()->get();
+
             return view('room/room_without_password')->with('documents',$files)->with('room',$room);
         }
         Session::put('error', 'List not found!');
