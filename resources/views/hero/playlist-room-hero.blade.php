@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="playlist-title">
-            <h1>playlist: gzhr3geZG456</h1>
+            <h1>playlist: {{ $room->title }}</h1>
         </div>
     </div>
 </div>
