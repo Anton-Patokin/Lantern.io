@@ -581,6 +581,10 @@ input:focus {
   width: 165px;
 }
 
+.logo-wrap a {
+  display: block;
+}
+
 .playlist-form-container {
   color: #000000;
   width: 475px;
@@ -615,16 +619,22 @@ input:focus {
 }
 
 .link-wrap .flame {
+  cursor: pointer;
   position: absolute;
   top: 50%;
-  left: 10px;
+  right: 5px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
 
+.link-wrap label {
+  font-size: 18px;
+  font-weight: 500;
+  display: inline-block;
+}
+
 .link-wrap input {
-  padding-left: 35px;
-  width: 237px;
+  width: 140px;
   font-weight: bold;
 }
 

@@ -1,0 +1,90 @@
+.playlist-form-container {
+    color: #000000;
+    width: 475px;
+    height: 305px;
+    margin: auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2.188em;
+}
+
+.playlist-form {
+    width: 390px;
+    margin: auto;
+}
+
+.link-wrap, .password-wrap {
+    position: relative;
+    width: 300px;
+    margin: auto;
+    input {
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: 1px solid $border-color;
+        background-color: $input-bg-color;
+        text-align: center;
+    }
+}
+
+.link-wrap {
+    margin-bottom: 30px;
+    .flame {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-50%);
+    }
+    label {
+        font-size: 18px;
+        font-weight: 500;
+        display: inline-block;
+    }
+    input {
+        width: 140px;
+        font-weight: bold;
+    }
+}
+
+.password-wrap {
+    margin-bottom: 30px;
+    label {
+        font-size: 18px;
+        font-weight: 500;
+        display: inline-block;
+    }
+    input {
+        width: 166px;
+        display: inline-block;
+    }
+    .disclaimer-star {
+        position: absolute;
+        right: -5px;
+    }
+}
+
+.disclaimer {
+    position: relative;
+    margin-bottom: 1.563em;
+    text-align: center;
+    .disclaimer-star {
+        position: absolute;
+        top: -5px;
+        left: -10px;
+    }
+
+    p {
+        font-size: 0.85em;
+        color: #787878;
+    }
+}
+
+.start-button-wrap {
+    text-align: center;
+}
+
+.disclaimer-star {
+    color: $orange-color;
+    font-weight: 500;
+    font-size: 22px;
+}
