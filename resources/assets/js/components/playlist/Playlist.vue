@@ -29,10 +29,18 @@
         mounted () {
             this.roomTitle = window.location.pathname.split('/');
             this.roomTitle = this.roomTitle[1];
+            this.nextFrame();
 
             this.getAllFiles();
         },
         methods: {
+            nextFrame: function () {
+                this.$http.post('/next/page', {title: this.roomTitle}).then((success) => {
+                    console.log(success);
+                }, (error) => {
+                    console.log(error);
+                });
+            },
             getAllFiles: function () {
                 this.$http.get('/api/' + this.roomTitle + '/get-files' ).then((success_res) => {
                     this.currentFiles = success_res.body;
@@ -54,7 +62,7 @@
             },
             downloadPlaylist: function () {
                 this.$http.get('/download/list/'+this.roomTitle).then((success_res) => {
-                    
+
                 }, (error_res) => {
 
                 });

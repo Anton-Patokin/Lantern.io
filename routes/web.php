@@ -11,7 +11,9 @@
 |
 */
 use Illuminate\Support\Facades\App;
-
+use Illuminate\Http\Request;
+use App\Events\TestEvent;
+use App\Room;
 
 Route::get('/', 'RoomController@index');
 
@@ -26,11 +28,14 @@ Route::post('/password','RoomController@access_room');
 Route::get('/list/{title}','AccessController@index');
 Route::get('/download/list/{title}','RoomController@download_room');
 
-Route::get('/bridge/test', function() {
-    $pusher = App::make('pusher');
+Route::post('/next/page', function(Request $request) {
+    $roomTitle = $request->json('title');
 
-    $pusher->trigger( 'test-channel',
-                      'test-event',
-                      array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
+    $room = Room::where('title', $roomTitle)->get();
 
+    dd($room);
+
+    event(new TestEvent($room));
+
+    return $room;
 });

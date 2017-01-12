@@ -164,7 +164,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,//custom
         'Chumper\Zipper\ZipperServiceProvider', //custom
-        //'Vinkla\Pusher\PusherServiceProvider', //custom
 
         /*
          * Package Service Providers...
