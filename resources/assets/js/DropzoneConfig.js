@@ -9,24 +9,12 @@ Dropzone.options.realDropzone = {
     headers: {
         'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
     },
-    thumbnail: function(file, dataUrl) {
-        if (file.previewElement) {
-            file.previewElement.classList.remove("dz-file-preview");
-            var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
-            for (var i = 0; i < images.length; i++) {
-                var thumbnailElement = images[i];
-                thumbnailElement.alt = file.name;
-                thumbnailElement.src = dataUrl;
-            }
-            setTimeout(function() { file.previewElement.classList.add("dz-image-preview"); }, 1);
-        }
-    },
+    createImageThumbnails : true,
     // Dropzone setup
     init: function () {
         var roomTitle = window.location.pathname.split('/');
         roomTitle = roomTitle[1];
         this.on("removedfile", function (file) {
-            console.log(file.filename);
             $.ajax({
                 type: 'POST',
                 url: '/file/delete',
@@ -38,11 +26,15 @@ Dropzone.options.realDropzone = {
                 success: function (data) {
                     var rep = JSON.parse(data);
                     if (rep.code == 200) {
-                        photo_counter--;
-                        $("#photoCounter").text("(" + photo_counter + ")");
-                        console.log('foro deleted counter ', photo_counter);
+                        var successEvent = new CustomEvent('successfull-delete', {
+                            'detail': {
+                                'isDeleted': true,
+                                'file': file
+                            }
+                        });
+
+                        dispatchEvent(successEvent);
                     }else{
-                        $("#error").text(rep.message);
                         console.log("something went wrong ")
                     }
                 }
@@ -77,6 +69,9 @@ Dropzone.options.realDropzone = {
     success: function (file, done) {
         file.filename = done.file_name;
         file.id = done.file_id;
-        console.log(file.filename);
+        var successEvent = new CustomEvent('successfull-upload', {
+            'detail': file
+        });
+        dispatchEvent(successEvent);
     }
 }

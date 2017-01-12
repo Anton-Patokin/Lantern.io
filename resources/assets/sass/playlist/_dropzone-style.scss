@@ -1,11 +1,13 @@
-
 .dropzone {
+    overflow-y: scroll;
     margin: auto;
     min-width: 40%;
-    min-height: 150px;
-    border: 2px solid #cccccc;
+    height: 185px;
     background-color: #f1f1f1;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: none;
+    border-bottom: 1px solid #cccccc;
     color: #999999;
     h1 {
         font-size: 1.125em;

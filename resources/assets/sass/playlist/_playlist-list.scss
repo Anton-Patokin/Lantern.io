@@ -1,7 +1,95 @@
-.playlist-list {
-    min-width: 40%;
-    height: 350px;
-    overflow-y: scroll;
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+        color: #303030;
+    }
+    25% {
+        opacity: 1;
+        color: $orange-color;
+    }
+    50% {
+        opacity: 1;
+        color: $orange-color;
+    }
+    100% {
+        opacity: 0.7;
+        color: #303030;
+    }
+}
+
+.playlist-dropzone-wrapper {
     border-radius: 10px;
-    border: 2px solid #cccccc;
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
+    width: 20em;
+    height: 90%;
+}
+
+.playlist-wrap {
+    width: 100%;
+    height: calc(100% - 185px);
+    .playlist-list {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    .download, .play {
+        text-decoration: none;
+        display: block;
+        color: #aaaaaa;
+        padding: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+            color: #ffffff;
+            background-color: #000000;
+        }
+    }
+}
+
+.list {
+    width: 100%;
+    height: 85%;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    overflow-y: scroll;
+    .playlist-item {
+        width: 100%;
+        margin-bottom: 0.2em;
+    }
+}
+
+.thumbnail {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    img {
+        position: absolute;
+        max-height: 100%;
+        width: 150%;
+    }
+    .overlay {
+        z-index: 200;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        background-color: rgb(144, 255, 0);
+        i {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
 }

@@ -1,46 +1,82 @@
 <template lang="html">
-    <div class="playlist-list">
-        <button @click="" type="button" name="button">download</button>
-        <div class="list">
-            <ul>
-                <li v-for="file in currentFiles">
-                    {{ file.title }} <button @click="deleteFile(file.title)" type="button" name="button">delete</button>
+    <div class="playlist-wrap">
+        <slide-show
+            v-if="slideShowStarted"
+            :current-files="currentFiles">
+        </slide-show>
+        <div class="playlist-list">
+            <div class="playlist-head">
+                <div class="controls">
+                    <a :href="'/download/list/' + roomTitle" class="download">
+                        <i class="fa fa-download"></i>
+                        download zip
+                    </a>
+                    <a class="play" @click.prevent="startNewSlideshow">
+                        <i class="fa fa-play"></i>
+                        start playlist
+                    </a>
+                </div>
+            </div>
+            <ul class="list">
+                <li class="playlist-item" v-for="file in currentFiles">
+                    <div class="thumbnail">
+                        <span class="overlay" @click="deleteFile(file.title)"><i class="fa fa-trash fa-3x"></i></span>
+                        <img :src="'/' + file.url" alt="">
+                    </div>
                 </li>
             </ul>
-        </div>
-        <div class="controls">
-
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            roomTitle: {
+                type: String
+            }
+        },
         data() {
             return {
                 currentFiles: [],
-                roomTitle: "",
                 fileDetails: {
                     room_title: "",
                     title: ""
-                }
+                },
+                slideShowStarted: false
             }
         },
         mounted () {
-            this.roomTitle = window.location.pathname.split('/');
-            this.roomTitle = this.roomTitle[1];
-            this.nextFrame();
+            window.addEventListener('successfull-upload', this.addNewFile);
+            window.addEventListener('successfull-delete', this.deleteFileFromList);
 
+            // this.nextFrame();
             this.getAllFiles();
         },
         methods: {
-            nextFrame: function () {
-                this.$http.post('/next/page', {title: this.roomTitle}).then((success) => {
-                    console.log(success);
-                }, (error) => {
-                    console.log(error);
-                });
+            addNewFile: function (e) {
+                var file = {
+                    title: e.detail.filename,
+                    url: 'uploads/' + this.roomTitle + '/' + e.detail.filename
+                };
+                this.currentFiles.push(file);
             },
+            deleteFileFromList: function (e) {
+                if (e.detail.isDeleted) {
+                    this.currentFiles = this.currentFiles.filter(function (el) {
+                        if(el.title !== e.detail.file.filename) {
+                            return el;
+                        }
+                    });
+                }
+            },
+            // nextFrame: function () {
+            //     this.$http.post('/next/page', {title: this.roomTitle}).then((success) => {
+            //         console.log(success);
+            //     }, (error) => {
+            //         console.log(error);
+            //     });
+            // },
             getAllFiles: function () {
                 this.$http.get('/api/' + this.roomTitle + '/get-files' ).then((success_res) => {
                     this.currentFiles = success_res.body;
@@ -60,12 +96,8 @@
                     console.log(error_res);
                 });
             },
-            downloadPlaylist: function () {
-                this.$http.get('/download/list/'+this.roomTitle).then((success_res) => {
-
-                }, (error_res) => {
-
-                });
+            startNewSlideshow: function () {
+                this.slideShowStarted = true;
             }
         }
     }

@@ -11,12 +11,8 @@
 |
 */
 use Illuminate\Support\Facades\App;
-use Illuminate\Http\Request;
-use App\Events\TestEvent;
-use App\Room;
 
 Route::get('/', 'RoomController@index');
-
 
 Route::post('/make/room', 'RoomController@create_room');
 Route::post('/file/upload', 'FileController@file_upload');
@@ -28,14 +24,4 @@ Route::post('/password','RoomController@access_room');
 Route::get('/list/{title}','AccessController@index');
 Route::get('/download/list/{title}','RoomController@download_room');
 
-Route::post('/next/page', function(Request $request) {
-    $roomTitle = $request->json('title');
-
-    $room = Room::where('title', $roomTitle)->get();
-
-    dd($room);
-
-    event(new TestEvent($room));
-
-    return $room;
-});
+Route::post('/next/page', 'EventSlideShowController@next');

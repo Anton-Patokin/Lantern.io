@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Lantern.io</title>
     <!-- Styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" media="screen" title="no title">
     <link rel="stylesheet" href="/css/dropzone.css">
     <link rel="stylesheet" href="/css/app.css">
     <script>
@@ -19,7 +20,7 @@
 <body>
     <div id="root">
         @yield('content')
-        <main-footer></main-footer>
+        
     </div>
     <script src="/js/app.js" charset="utf-8"></script>
     @yield('javascript')

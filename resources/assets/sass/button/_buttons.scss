@@ -3,11 +3,22 @@
     border: none;
     padding: 15px 0px;
     cursor: pointer;
+    color: #c8c8c8;
+    &:hover {
+        color: #ffffff;
+    }
 }
+
 
 .btn-default {
     background-color: $orange-color;
-    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.btn-download {
+    width: 150px;
+    background-color: #3c3c3c;
     font-weight: bold;
     border-radius: 10px;
 }

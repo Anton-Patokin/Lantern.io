@@ -1,23 +1,17 @@
-<div class="dropzone-container">
-    {{ Form::open(array('url' => 'file/upload',
-    'method' => 'post',
-    'class' => 'dropzone needsclick dz-clickable',
-    'id'=>'realDropzone'))
-    }}
-    {{ Form::text('title', $room->title, array('hidden'=>'hidden')) }}
+<div class="playlist-dropzone-wrapper">
+    @include('room.dropzone')
+    <div class="password-container">
+        {{Form::open(['url' => '/password'])}}
+            {{Form::text('title',$room->title,array('hidden'=>'hidden'))}}
+            <div class="playlist-password-wrap">
+                <label for="password">Passkey:</label>
+                <input id="password" type="password" name="password" value="">
+                {{Form::submit('Send',['class'=>'btn btn-default'])}}
+            </div>
 
-    <div class="dz-message">
-        <div class="title-dropzone">
-            <span class="flame"></span>
-            <h1>Drop it like it's hot!</h1>
+        {{Form::close()}}
+        <div class="explanation-password">
+            <p>When you fill in the passkey correctly you will gain full access to the playlist.</p>
         </div>
-        <br />
-        <span class="note">(Your images are uploaded as soon as you drop them. Max. size 25MB)</span>
     </div>
-
-    {{-- if user has js disabled --}}
-    <div class="fallback">
-        <input name="file" type="file" multiple/>
-    </div>
-    {{ Form::close() }}
 </div>
