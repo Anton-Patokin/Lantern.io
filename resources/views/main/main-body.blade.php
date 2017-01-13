@@ -8,7 +8,7 @@
             <br>
             What we try to achieve with this tool is making <strong>your</strong> life easier.</p>
             <h2>But, how?</h2>
-            <p>Well, simply by turning your computer into <strong>a central point for collecting and projecting</strong> all the images people want to share or show to the others. Connect your laptop to a projector and start the slide show. No more hassle with cables, incompatible connectors, millions of usb drives and most of all <strong>no more annoying waiting time.</strong></p>
+            <p>Well, simply by turning your computer into <strong>a central point for collecting and projecting</strong> all the images people want to share or show to the others. Connect your laptop to a projector and start the slide show. No more hassle with cables, incompatible connectors, millions of usb drives and most of all <strong>no more time wasting.</strong></p>
         </div>
     </div>
 </section>
