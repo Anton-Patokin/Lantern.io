@@ -20,7 +20,7 @@
 .playlist-dropzone-wrapper {
     border-radius: 10px;
     box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
-    width: 20em;
+    width: 30em;
     height: 90%;
 }
 
@@ -30,7 +30,7 @@
     .playlist-list {
         width: 100%;
         height: 100%;
-        padding: 10px;
+        padding: 10px 0px;
         box-sizing: border-box;
     }
 }
@@ -38,11 +38,13 @@
 .controls {
     display: flex;
     justify-content: space-between;
-    .download, .play {
+    align-items: center;
+    padding: 0px 10px;
+    .download, .play, .options, .confirm {
         text-decoration: none;
         display: block;
         color: #aaaaaa;
-        padding: 5px;
+        padding: 10px;
         font-weight: bold;
         cursor: pointer;
         &:hover {
@@ -50,19 +52,52 @@
             background-color: #000000;
         }
     }
+    .play, .confirm {
+        animation-name: pulse;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+    }
+    .duration {
+        input {
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 5px;
+            width: 25%;
+        }
+    }
+    .duration, .autoplay, .confirm {
+        box-sizing: border-box;
+        width: 33%;
+        text-align: center;
+    }
 }
 
 .list {
     width: 100%;
     height: 85%;
     list-style: none;
-    padding: 0;
+    padding: 5px;
     margin: 10px 0 0 0;
     overflow-y: scroll;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
     .playlist-item {
-        width: 100%;
+        width: 48%;
         margin-bottom: 0.2em;
     }
+}
+
+.error-list {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #cccccc;
 }
 
 .thumbnail {
@@ -70,10 +105,14 @@
     height: 200px;
     position: relative;
     overflow: hidden;
+    background-color: #cccccc;
     img {
         position: absolute;
-        max-height: 100%;
-        width: 150%;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        transform: translate(-50%,-50%);
     }
     .overlay {
         z-index: 200;
@@ -81,8 +120,10 @@
         width: 100%;
         height: 100%;
         opacity: 0;
-        background-color: rgb(144, 255, 0);
+        background-color: rgba(#000000, 0.39);
         i {
+            cursor: pointer;
+            color: #ffffff;
             position: absolute;
             left: 50%;
             top: 50%;

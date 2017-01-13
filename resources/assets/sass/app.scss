@@ -3,13 +3,15 @@
 @import 'variables';
 @import 'init';
 @import 'text-colors';
-@import 'titles';
+@import 'titles/titles';
+@import 'titles/titles-media-queries';
 @import 'button/buttons';
 
 @import 'hero/mainpage-hero/hero';
 @import 'hero/mainpage-hero/hero-form';
 @import 'hero/mainpage-hero/media-query-hero';
 @import 'hero/playlist-hero/playlist-hero';
+@import 'hero/playlist-hero/media-query-playlist-hero';
 
 @import 'mainpage/main-page-body';
 @import 'mainpage/media-query-main-page';
@@ -17,7 +19,7 @@
 @import 'playlist/playlist-general';
 @import 'playlist/playlist-list';
 @import 'playlist/dropzone-style';
-@import 'playlist/media-query-playlist';
 @import 'playlist/slideshow/slideshow';
+@import 'playlist/media-query-playlist';
 
 @import 'footer/footer';

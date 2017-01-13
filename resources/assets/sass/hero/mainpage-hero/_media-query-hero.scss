@@ -27,14 +27,8 @@
         width: 95%;
     }
 
-    .link-wrap {
-        width: 100%;;
-        input{
-            width: 70%;
-        }
-    }
-
-    .password-wrap {
+    .link-wrap, .password-wrap {
+        flex-direction: column;
         width: 100%;;
         input{
             width: 70%;

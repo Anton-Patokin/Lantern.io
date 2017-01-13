@@ -10,6 +10,7 @@ require('./DropzoneConfig.js');
 require('./typed.min.js');
 
 $(document).ready(function () {
+    // home page password active on focus.
     $('#password').focus(function () {
         $(this).parent().addClass('active');
     }).blur(function() {

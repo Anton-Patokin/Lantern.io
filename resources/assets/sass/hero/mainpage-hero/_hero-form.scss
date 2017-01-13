@@ -14,38 +14,47 @@
 }
 
 .link-wrap, .password-wrap {
+    .error-container {
+        width: 100%;
+        text-align: center;
+        color: $orange-color;
+        font-weight: bold;
+    }
     position: relative;
-    width: 300px;
+    width: 100%;
     margin: auto;
     input {
+        margin-left: 2px;
         padding: 10px 20px;
         border-radius: 10px;
         border: 1px solid $border-color;
         background-color: $input-bg-color;
         text-align: center;
+        width: 73%;
+        font-weight: bold;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+    label {
+        width: 25%;
+        font-size: 18px;
+        font-weight: 500;
+        display: inline-block;
     }
 }
 
 .link-wrap {
     margin-bottom: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     .flame {
         cursor: pointer;
         position: absolute;
         top: 50%;
         left: -20px;
         transform: translateY(-50%);
-    }
-    label {
-        font-size: 18px;
-        font-weight: 500;
-        display: inline-block;
-    }
-    input {
-        width: 140px;
-        font-weight: bold;
     }
 }
 
@@ -54,8 +63,9 @@
     opacity: 0.3;
     transition: 0.2s opacity ease-in;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     &.active {
         opacity: 1;
     }
@@ -64,15 +74,6 @@
     }
     input:focus .password-wrap{
         opacity: 1;
-    }
-    label {
-        font-size: 18px;
-        font-weight: 500;
-        display: inline-block;
-    }
-    input {
-        width: 140px;
-        display: inline-block;
     }
     .disclaimer-star {
         position: absolute;

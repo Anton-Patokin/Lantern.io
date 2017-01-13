@@ -9,6 +9,10 @@
     border: none;
     border-bottom: 1px solid #cccccc;
     color: #999999;
+    padding: 10px;
+    .dz-preview {
+        margin: 10px;
+    }
     h1 {
         font-size: 1.125em;
     }
@@ -33,4 +37,10 @@
     height: 70px;
     background: url('/img/plus-icon.png');
     margin-bottom: 20px;
+}
+
+
+.dropzone .dz-preview .dz-success-mark,
+.dropzone .dz-preview .dz-error-mark {
+    z-index: 201;
 }

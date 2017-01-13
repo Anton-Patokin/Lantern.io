@@ -3,6 +3,7 @@ window._ = require('lodash');
 
 window.Dropzone = require('./dropzone.js');
 
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -11,6 +12,8 @@ window.Dropzone = require('./dropzone.js');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
+
+window.tooltipster = require('tooltipster');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

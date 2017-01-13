@@ -16,6 +16,9 @@
                 <div class="link-wrap">
                     <label for="title"><span class="lantern">lantern.<span class="text-orange">io</span></span>/</label>
                     <input id="title" type="text" name="title" value="{{$url}}" autofocus>
+                    @if(Session::has('errors'))
+                        <span class="error-container">{{ $errors->first('title') }}</span>
+                    @endif
                 </div>
 
                 @if($errors->has('password'))
@@ -23,7 +26,7 @@
                         <label for="password">passkey:</label>
                         <input id="password" type="password" name="password" value="" placeholder="optional">
                         <span class="disclaimer-star">*</span>
-                        <span>{{ $errors->first('password') }}</span>
+                        <span class="error-container">{{ $errors->first('password') }}</span>
                     </div>
                 @else
                     <div class="password-wrap">
