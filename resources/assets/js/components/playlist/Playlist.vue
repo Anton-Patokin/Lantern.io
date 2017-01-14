@@ -92,11 +92,6 @@
             window.addEventListener('successfull-delete', this.deleteFileFromList);
             // this.listenToEvent();
             this.getAllFiles();
-
-            Echo.private('room')
-                .listen('test-event', (e) => {
-                    console.log(e);
-                });
         },
         computed: {
             duration: function () {
@@ -158,6 +153,11 @@
                 });
             },
             startNewSlideshow: function () {
+                this.$http.post('/bridge/pusher/slideshow', {'roomTitle': this.roomTitle, 'url': this.currentFiles[0]}).then((success_res)=> {
+                    console.log(success_res);
+                }, (error_res) => {
+                    console.log(error_res);
+                });
                 if( this.currentFiles.length > 0 ) {
                     this.slideShowStarted = true;
                 }
