@@ -10,14 +10,13 @@ class PusherController extends Controller
     public function start_slideshow(Request $request){
 
         $room     = $request->json('roomTitle');
-        $url      = $request->json('url');
         $isActive = true;
 
         $pusher = App::make('pusher');
 
         $pusher->trigger($room,
-            'slide-show-start',
-            array('url' => '/' . $url, 'slide_show_started' => $isActive));
+            'slide-show-active',
+            array('slide_show_started' => $isActive));
 
         return 'Started Slideshow';
     }
@@ -30,9 +29,24 @@ class PusherController extends Controller
         $pusher = App::make('pusher');
 
         $pusher->trigger($room,
-            'slide-show-start',
+            'slide-show-active',
             array('slide_show_started' => $isActive));
 
         return 'Stopped Slideshow';
+    }
+
+    public function move_slide(Request $request) {
+
+        $room = $request->json('roomTitle');
+        $url  = $request->json('url');
+        $direction = $request->json('direction');
+
+        $pusher = App::make('pusher');
+
+        $pusher->trigger($room,
+            'slide-show-move',
+            array('url' => $url, 'direction' => $direction));
+
+        return 'move slide ' . $direction;
     }
 }

@@ -25,8 +25,8 @@
         </div> -->
 
         <ul class="slide-show-list">
-            <li class="slide-show-item" v-for="file in currentFiles">
-                <img :src="'/' + file.url">
+            <li class="slide-show-item active">
+                <img :src="'/' + currentFile">
             </li>
         </ul>
     </div>
@@ -37,6 +37,9 @@ export default {
     props: {
         currentFiles: {
             type: Array
+        },
+        currentFile: {
+            type: String
         },
         duration: {
             type: Number
@@ -68,7 +71,7 @@ export default {
         init: function () {
             // initialize the component.
             this.slideShowEl = document.getElementById("slideShow");
-            this.slideShowItems = document.querySelectorAll('.slide-show-item');
+
 
             this.initSlideShow(); //setup slideshow first img
             this.bindEventListeners(); // listen for key presses: left, right, esc
@@ -110,7 +113,7 @@ export default {
             }
         },
         quitSlideShow: function () {
-            var data = {'roomTitle': this.roomTitle, 'slide_show_started': false};
+            var data = {'roomTitle': this.roomTitle};
 
             this.$http.post('/bridge/pusher/slideshow/stop', data).then((success_res) => {
                 clearInterval(this.autoSliding);
@@ -157,14 +160,27 @@ export default {
                 case "prev":
                     if (this.currentItemShowing > 1)
                         this.currentItemShowing--;
-                        this.slideShowItems[this.currentItemShowing].classList.remove('active');
-                        this.slideShowItems[this.currentItemShowing-1].classList.add('active');
+                        // this.slideShowItems[this.currentItemShowing].classList.remove('active');
+                        // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
                     break;
                 case "next":
-                    if (this.currentItemShowing < this.slideShowLength) {
+                    if (this.currentItemShowing < this.currentFiles.length) {
+                        console.log('next');
                         this.currentItemShowing++;
-                        this.slideShowItems[this.currentItemShowing-2].classList.remove('active');
-                        this.slideShowItems[this.currentItemShowing-1].classList.add('active');
+                        // this.slideShowItems[this.currentItemShowing-2].classList.remove('active');
+                        // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
+
+                        var data = {
+                            "roomTitle": this.roomTitle,
+                            "url": this.currentFiles[this.currentItemShowing-1].url,
+                            "direction": "next"
+                        }
+
+                        this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
+                            console.log('next success', success_res);
+                        }, (error_res) => {
+                            console.log('next error');
+                        });
                     }
                     else {
                         clearInterval(this.autoSliding); // clear interval when end of slideshow was reached.
@@ -179,7 +195,7 @@ export default {
             var app = this;
             clearInterval(this.autoSliding ); // clear interval to make sure it's not running anymore.
             this.autoSliding = setInterval(function () {
-                console.log("Aut move has fired");
+                console.log("Auto move has fired");
                 app.moveShow("next"); // call moveShow next, to go to the next slide.
             }, duration);
         }
