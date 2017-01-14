@@ -22,5 +22,8 @@ class BroadcastServiceProvider extends ServiceProvider
         Broadcast::channel('playlist.*', function ($password, $roomId) {
             return true;
         });
+        Broadcast::channel('room', function ( ) {
+            return true;
+        });
     }
 }
