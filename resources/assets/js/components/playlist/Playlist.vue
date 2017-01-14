@@ -129,7 +129,6 @@
                 var channel = window.pusher.subscribe(this.roomTitle);
 
                 channel.bind('slide-show-active', (data) => {
-                    // console.log("slide-show-active: ", data);
                     app.pusherRes.slideShowActive = data.slide_show_started;
                 });
 
@@ -138,9 +137,15 @@
                 });
 
                 channel.bind('slide-show-settings-changed', (data) => {
-                    console.log('hello settings changed');
                     app.autoplayEnabled = data.autoplay_enabled;
                     app.durationInput = data.autoplay_timer;
+                });
+
+                channel.bind('upload-file', (data) => {
+                    console.log(data);
+                    if(data.file_updated) {
+                        app.getAllFiles();
+                    }
                 });
 
             },
@@ -177,7 +182,7 @@
             getAllFiles: function () {
                 this.$http.get('/api/' + this.roomTitle + '/get-files' ).then((success_res) => {
                     this.currentFiles = success_res.body;
-                    this.pusherRes.url = this.currentFiles[0].url;
+                    // this.pusherRes.url = this.currentFiles[0].url;
                 }, (error_res) => {
                     console.log("error");
                 });
