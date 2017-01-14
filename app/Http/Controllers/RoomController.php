@@ -103,7 +103,7 @@ class RoomController extends Controller
                 return response()->download(public_path($path_name))->deleteFileAfterSend(true);
             } else {
                 if (count($files) == 0) {
-                    return redirect('/dashboard');
+                    return redirect('/'.$find_room->title);
                 }
                 Zipper::make($path_name)->add($files);
                 return redirect('/download/list/' . $find_room->title);
