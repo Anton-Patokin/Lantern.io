@@ -19,7 +19,10 @@ class BroadcastServiceProvider extends ServiceProvider
         /*
          * Authenticate the user's personal channel...
          */
-        Broadcast::channel('test-channel', function ($user, $roomTitle) {
+        Broadcast::channel('playlist.*', function ($password, $roomId) {
+            return true;
+        });
+        Broadcast::channel('room', function ( ) {
             return true;
         });
     }
