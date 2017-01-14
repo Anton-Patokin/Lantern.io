@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\App;
 Route::post('/bridge/pusher/slideshow/start', 'PusherController@start_slideshow');
 Route::post('/bridge/pusher/slideshow/stop', 'PusherController@stop_slideshow');
 Route::post('/bridge/pusher/slideshow/move', 'PusherController@move_slide');
+Route::post('/bridge/pusher/slideshow/options', 'PusherController@send_options');
 
 
 Route::get('/', 'RoomController@index');

@@ -41,7 +41,7 @@
                         <label for="autoplay">autoplay</label>
                     </div>
 
-                    <a class="confirm" @click.prevent="showOptions = !showOptions">
+                    <a class="confirm" @click.prevent="confirmOptions">
                         <i class="fa fa-check-circle-o"></i>
                         confirm
                     </a>
@@ -104,7 +104,13 @@
         },
         computed: {
             duration: function () {
-                return parseInt(this.durationInput) * 1000;
+                var temp = parseInt(this.durationInput);
+
+                if (temp < 0) {
+                    temp * -1;
+                }
+
+                return temp * 1000;
             }
         },
         watch: {
@@ -131,6 +137,26 @@
                     app.pusherRes.url = data.url;
                 });
 
+                channel.bind('slide-show-settings-changed', (data) => {
+                    console.log('hello settings changed');
+                    app.autoplayEnabled = data.autoplay_enabled;
+                    app.durationInput = data.autoplay_timer;
+                });
+
+            },
+            confirmOptions: function () {
+                var data = {
+                    'roomTitle': this.roomTitle,
+                    'autoplay_enabled': this.autoplayEnabled,
+                    'autoplay_timer': this.durationInput
+                }
+
+                this.$http.post('/bridge/pusher/slideshow/options', data).then((success_res) => {
+                    this.showOptions = false;
+                }, (error_res) => {
+                    this.showOptions = false;
+                    alert('Something went wrong! Try again later.');
+                })
             },
             addNewFile: function (e) {
                 var file = {
