@@ -209,13 +209,13 @@ export default {
                 this.canClick = false;
                 setTimeout(function() {
                     app.canClick = true;
-                    console.log(app.canClick);
                 }, 1000);
             }
         },
         autoMoveShow: function (duration) {
             // auto move slide show function.
             var app = this;
+            this.canClick = true;
             clearInterval(this.autoSliding ); // clear interval to make sure it's not running anymore.
             this.autoSliding = setInterval(function () {
                 //console.log("Auto move has fired");
