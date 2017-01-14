@@ -90,7 +90,7 @@
         mounted () {
             window.addEventListener('successfull-upload', this.addNewFile);
             window.addEventListener('successfull-delete', this.deleteFileFromList);
-            // this.listenToEvent();
+            this.openChannelListener();
             this.getAllFiles();
         },
         computed: {
@@ -109,14 +109,13 @@
             }
         },
         methods: {
-            // listenToEvent: function () {
-            //     console.log('im listening');
-            //     console.log(Echo);
-            //     window.Echo.channel('test-channel')
-            //         .listen('test-event', (e) => {
-            //             console.log(e.text);
-            //         });
-            // },
+            openChannelListener: function () {
+               var channel = window.pusher.subscribe(this.roomTitle);
+
+               channel.bind('slide-show-start', (data) => {
+                   console.log(data);
+               });
+            },
             addNewFile: function (e) {
                 var file = {
                     title: e.detail.filename,
@@ -153,8 +152,8 @@
                 });
             },
             startNewSlideshow: function () {
-                this.$http.post('/bridge/pusher/slideshow', {'roomTitle': this.roomTitle, 'url': this.currentFiles[0]}).then((success_res)=> {
-                    console.log(success_res);
+                this.$http.post('/bridge/pusher/slideshow', {'roomTitle': this.roomTitle, 'url': this.currentFiles[0].url}).then((success_res)=> {
+                    this.pusherRes
                 }, (error_res) => {
                     console.log(error_res);
                 });
