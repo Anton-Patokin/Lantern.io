@@ -148,6 +148,12 @@
                     }
                 });
 
+                channel.bind('delete-file', (data) => {
+                    console.log(data);
+                    if(data.file_deleted) {
+                        app.getAllFiles();
+                    }
+                });
             },
             confirmOptions: function () {
                 var data = {
