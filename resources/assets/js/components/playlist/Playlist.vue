@@ -109,6 +109,10 @@
             }
         },
         methods: {
+            listenForEvents: function () {
+                Echo.listen(this.roomTitle)
+                    .events();
+            }
             addNewFile: function (e) {
                 var file = {
                     title: e.detail.filename,
