@@ -90,7 +90,8 @@
                 pusherRes: {
                     slideShowActive: false,
                     url: ""
-                }
+                },
+                canStartSlideShow: true
             }
         },
         mounted () {
@@ -122,7 +123,7 @@
                 var channel = window.pusher.subscribe(this.roomTitle);
 
                 channel.bind('slide-show-active', (data) => {
-                    console.log("slide-show-active: ", data);
+                    // console.log("slide-show-active: ", data);
                     app.pusherRes.slideShowActive = data.slide_show_started;
                 });
 
@@ -168,18 +169,24 @@
                 });
             },
             startNewSlideshow: function () {
-                if( this.currentFiles.length > 0 ) {
+                var app = this;
+                if( this.canStartSlideShow ) {
+                    if( this.currentFiles.length > 0 ) {
 
-                    this.pusherRes.url = this.currentFiles[0].url;
+                        this.pusherRes.url = this.currentFiles[0].url;
 
-                    var data = {'roomTitle': this.roomTitle};
+                        var data = {'roomTitle': this.roomTitle};
 
-                    this.$http.post('/bridge/pusher/slideshow/start', data).then((success_res)=> {
-                        console.log('started slideshow', success_res);
-                    }, (error_res) => {
-                        console.log(error_res);
-                    });
+                        this.$http.post('/bridge/pusher/slideshow/start', data).then((success_res)=> {
+                            app.canStartSlideShow = false;
+                            setTimeout(() => {
+                                app.canStartSlideShow = true;
+                            }, 5000);
+                        }, (error_res) => {
+                            console.log(error_res);
+                        });
 
+                    }
                 }
             }
         }

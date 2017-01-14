@@ -12,11 +12,11 @@
             <i class="fa fa-times fa-2x" @click="exitFullScreen"></i>
         </div>
 
-        <div id="prev-file" @click="moveShow('prev')">
+        <div id="prev-file" @click="moveShow('prev', 'user')">
             <i class="fa fa-arrow-circle-o-left fa-2x"></i>
         </div>
 
-        <div id="next-file" @click="moveShow('next')">
+        <div id="next-file" @click="moveShow('next', 'user')">
             <i class="fa fa-arrow-circle-o-right fa-2x"></i>
         </div>
 
@@ -58,7 +58,8 @@ export default {
             slideShowLength: 0,
             isFullscreen: false,
             slideShowEl: null,
-            autoSliding: null
+            autoSliding: null,
+            canClick: true
         }
     },
     mounted () {
@@ -154,48 +155,62 @@ export default {
                 this.isFullscreen = false;
             }
         },
-        moveShow: function (direction) {
+        moveShow: function (direction, trigger) {
             // determine direction.
             switch (direction) {
                 case "prev":
-                    if (this.currentItemShowing > 1)
-                        this.currentItemShowing--;
-                        var data = {
-                            "roomTitle": this.roomTitle,
-                            "url": this.currentFiles[this.currentItemShowing-2].url,
-                            "direction": "prev"
-                        }
+                    if( this.canClick) {
+                        if (this.currentItemShowing > 1)
+                            this.currentItemShowing--;
+                            var data = {
+                                "roomTitle": this.roomTitle,
+                                "url": this.currentFiles[this.currentItemShowing-1].url,
+                                "direction": "prev"
+                            }
 
-                        this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
-                            console.log('prev success', success_res);
-                        }, (error_res) => {
-                            console.log('next error');
-                        });
+                            this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
+                                //console.log('prev success', success_res);
+                            }, (error_res) => {
+                                //console.log('next error');
+                            });
+
+                    }
                     break;
                 case "next":
-                    if (this.currentItemShowing < this.currentFiles.length) {
-                        this.currentItemShowing++;
-                        // this.slideShowItems[this.currentItemShowing-2].classList.remove('active');
-                        // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
+                    if ( this.canClick ) {
+                        if (this.currentItemShowing < this.currentFiles.length) {
+                            this.currentItemShowing++;
+                            // this.slideShowItems[this.currentItemShowing-2].classList.remove('active');
+                            // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
 
-                        var data = {
-                            "roomTitle": this.roomTitle,
-                            "url": this.currentFiles[this.currentItemShowing-1].url,
-                            "direction": "next"
+                            var data = {
+                                "roomTitle": this.roomTitle,
+                                "url": this.currentFiles[this.currentItemShowing-1].url,
+                                "direction": "next"
+                            }
+
+                            this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
+                                //console.log('next success', success_res);
+                            }, (error_res) => {
+                                //console.log('next error');
+                            });
                         }
-
-                        this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
-                            console.log('next success', success_res);
-                        }, (error_res) => {
-                            console.log('next error');
-                        });
-                    }
-                    else {
-                        clearInterval(this.autoSliding); // clear interval when end of slideshow was reached.
+                        else {
+                            clearInterval(this.autoSliding); // clear interval when end of slideshow was reached.
+                        }
                     }
                     break;
                 default:
                     console.log('default');
+            }
+
+            if(trigger === "user") {
+                var app = this;
+                this.canClick = false;
+                setTimeout(function() {
+                    app.canClick = true;
+                    console.log(app.canClick);
+                }, 1000);
             }
         },
         autoMoveShow: function (duration) {
@@ -203,8 +218,8 @@ export default {
             var app = this;
             clearInterval(this.autoSliding ); // clear interval to make sure it's not running anymore.
             this.autoSliding = setInterval(function () {
-                console.log("Auto move has fired");
-                app.moveShow("next"); // call moveShow next, to go to the next slide.
+                //console.log("Auto move has fired");
+                app.moveShow("next", "auto"); // call moveShow next, to go to the next slide.
             }, duration);
         }
     }

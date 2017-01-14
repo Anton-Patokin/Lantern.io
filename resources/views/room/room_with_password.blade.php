@@ -4,7 +4,6 @@
 
     <div class="playlist-body">
         @if(!isset($documents))
-            <slideshow></slideshow>
             @include('room.room-dropzone')
         @else
             @include('room.playlist-dropzone')
