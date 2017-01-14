@@ -96,12 +96,15 @@ class RoomController extends Controller
     public function download_room($room)
     {
         $find_room = Room::where('title', $room)->first();
-            $files = glob(public_path('uploads\\' . $find_room->title . '\*'));
-            $path_name = 'uploads\\' . $find_room->title . '\\' . $find_room->title . '.zip';
+            $files = glob(public_path('uploads/' . $find_room->title . '/*'));
+            $path_name = 'uploads/' . $find_room->title . '/' . $find_room->title . '.zip';
+
+
 
             if (file_exists($path_name)) {
                 return response()->download(public_path($path_name))->deleteFileAfterSend(true);
             } else {
+               
                 if (count($files) == 0) {
                     return redirect('/'.$find_room->title);
                 }
