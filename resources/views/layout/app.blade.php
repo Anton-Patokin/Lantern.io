@@ -28,13 +28,7 @@
     <script src="/js/app.js" charset="utf-8"></script>
     @yield('javascript')
     <script>
-        $(document).ready(function() {
-            $('.tooltip').tooltipster({
-                delay: 20,
-                theme: 'tooltipster-borderless',
-                trigger: 'hover'
-            }); // tooltipster init.
-        });
+        
     </script>
 </body>
 </html>

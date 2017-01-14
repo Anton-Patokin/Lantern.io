@@ -90,8 +90,13 @@
         mounted () {
             window.addEventListener('successfull-upload', this.addNewFile);
             window.addEventListener('successfull-delete', this.deleteFileFromList);
-
+            // this.listenToEvent();
             this.getAllFiles();
+
+            Echo.private('room')
+                .listen('test-event', (e) => {
+                    console.log(e);
+                });
         },
         computed: {
             duration: function () {
@@ -109,6 +114,14 @@
             }
         },
         methods: {
+            // listenToEvent: function () {
+            //     console.log('im listening');
+            //     console.log(Echo);
+            //     window.Echo.channel('test-channel')
+            //         .listen('test-event', (e) => {
+            //             console.log(e.text);
+            //         });
+            // },
             addNewFile: function (e) {
                 var file = {
                     title: e.detail.filename,
