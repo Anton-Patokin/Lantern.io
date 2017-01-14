@@ -11,13 +11,14 @@ use App\Document;
 use Response;
 use File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
 
 
 class FileController extends Controller
 {
     public function file_upload(Request $request)
     {
-//      get file from the post request
+        //get file from the post request
         $file = array('file' => $request->file('file'));
         // setting up rules
         $rules = array('file' => 'required|mimes:jpeg,gif,bmp,png,jpg|max:8000',); //mimes:jpeg,bmp,png and for max size max:10000
@@ -26,15 +27,14 @@ class FileController extends Controller
 
         if ($validator->fails()) {
             // send back to the page with the input data and errors
-//            return Redirect::to('test')->withInput()->withErrors($validator);
+            //return Redirect::to('test')->withInput()->withErrors($validator);
 
-            
             return Response::json([
                 'error' => true,
                 'message' => $validator->messages()->first(),
                 'code' => 400
             ], 400);
-//            return Response::make($validator->errors()->all(), 400);
+            //return Response::make($validator->errors()->all(), 400);
         } else {
 
             // checking file is valid.
@@ -47,7 +47,6 @@ class FileController extends Controller
                     return Response::json('error', 400);
                 }
 
-
                 $file = $request->file('file');
                 $destinationPath = 'uploads/' . $room->title; // upload path + make folder with unic room
                 //set unic name fileName + name + last_name + unic time
@@ -59,7 +58,7 @@ class FileController extends Controller
 
                 // uploading file to given path
                 if ($file->move($destinationPath, $fileName)) {
-//                    only save document info after upload is done
+                    //only save document info after upload is done
                     $document = new Document();
                     $document->title = $file->getClientOriginalName();
                     $document->url =  $destinationPath . "/" . $fileName;
@@ -69,8 +68,16 @@ class FileController extends Controller
                     //if document is uoloaded and DB is saved then return success
                     if ($document->save()) {
                         // sending back with message
-//                        Session::flash('success', 'Upload successfully');
-//                        return Response::json('success', 200);
+                        //Session::flash('success', 'Upload successfully');
+                        //return Response::json('success', 200);
+
+                        // pusher event for upload
+                        $pusher = App::make('pusher');
+
+                        $pusher->trigger($room->title,
+                            'upload-file',
+                            array('file_updated' => true));
+
                         return Response::json([
                             'error' => false,
                             'file_id' => $document->id,
@@ -91,21 +98,23 @@ class FileController extends Controller
         return Response::json('error', 400);
     }
 
-
     public function file_delete(Request $request)
     {
         $room = Room::where('title', $request->room_title)->first();
         $document = $room->documents()->where('title', $request->title)->get()->first();
 
         if ($document != null) {
-
-
-//    return $path = $document->url;
-
-
+            //return $path = $document->url;
             if ($document->delete()) {
                 //ther are two tipes of files fisyc and web if iets fysic delete on server outher way delete from DB only
                 if (unlink($document->url)) {
+
+                    $pusher = App::make('pusher');
+
+                    $pusher->trigger($room->title,
+                        'delete-file',
+                        array('file_deleted' => true));
+
                     return Response::json([
                         'error' => false,
                         'message' => "Successfully deleted.",
