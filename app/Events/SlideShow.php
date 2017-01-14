@@ -12,16 +12,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class SlideShow implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
-    public $message;
+
+    public $roomTitle;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($room)
+    public function __construct($roomTitle)
     {
-        $this->message =$room;
+        $this->roomTitle = $roomTitle;
     }
 
     /**
@@ -31,6 +32,6 @@ class SlideShow implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('room',$this->message);
+        return new PrivateChannel('test-channel');
     }
 }

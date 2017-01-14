@@ -18,10 +18,10 @@ Route::get('/bridge/pusher/room', function() {
 
     $pusher = App::make('pusher');
 
-    event(new \App\Events\SlideShow('hallo its working'));
-//    $pusher->trigger( 'test-channel',
-//        'test-event',
-//        array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
+   event(new \App\Events\SlideShow('test-channel'));
+   $pusher->trigger( 'test-channel',
+       'test-event',
+       array('text' => 'Preparing the Pusher Laracon.eu workshop!'));
 
     return 'done and done';
 });
