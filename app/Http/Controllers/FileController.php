@@ -28,6 +28,7 @@ class FileController extends Controller
             // send back to the page with the input data and errors
 //            return Redirect::to('test')->withInput()->withErrors($validator);
 
+            
             return Response::json([
                 'error' => true,
                 'message' => $validator->messages()->first(),

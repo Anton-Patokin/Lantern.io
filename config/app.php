@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,//custom
         'Chumper\Zipper\ZipperServiceProvider', //custom
+        Vinkla\Pusher\PusherServiceProvider::class,//custom
 
         /*
          * Package Service Providers...
@@ -231,6 +232,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,//custom
         'Uuid' => Webpatser\Uuid\Uuid::class,//custom
         'Zipper' => 'Chumper\Zipper\Zipper', //custom
+
     ],
 
 ];
