@@ -43,6 +43,9 @@ export default {
         },
         autoPlay: {
             type: Boolean
+        },
+        roomTitle: {
+            type: String
         }
     },
     data () {
@@ -72,20 +75,6 @@ export default {
             if(this.autoPlay) {
                 this.autoMoveShow(this.duration); //init auto scrolling in slideshow
             }
-
-
-            // $(window).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
-            //     if(document.webkitFullscreenElement) {
-            //         this.isFullscreen = true;
-            //     } else if (document.mozFullScreenElement) {
-            //         this.isFullscreen = true;
-            //     } else if (document.msFullscreenElement) {
-            //         this.isFullscreen = true;
-            //     } else {
-            //         this.isFullscreen = false;
-            //     }
-            // });
-
         },
         bindEventListeners: function () {
             var app = this;
@@ -121,8 +110,14 @@ export default {
             }
         },
         quitSlideShow: function () {
-            this.$parent.slideShowStarted = false;
-            clearInterval(this.autoSliding);
+            var data = {'roomTitle': this.roomTitle, 'slide_show_started': false};
+
+            this.$http.post('/bridge/pusher/slideshow/stop', data).then((success_res) => {
+                clearInterval(this.autoSliding);
+            }, (error_res) => {
+                alert("Can't stop the slideshow");
+            });
+
         },
         goFullScreen: function () {
             // go full screen, browser support for: IE, Moz, WebKit, others...

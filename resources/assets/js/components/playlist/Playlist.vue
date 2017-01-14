@@ -2,7 +2,8 @@
     <div class="playlist-wrap">
         <!-- slideshow -->
         <slide-show
-            v-if="slideShowStarted"
+            v-if="pusherRes.slideShowActive"
+            :room-title="roomTitle"
             :current-files="currentFiles"
             :duration="duration"
             :auto-play="autoplayEnabled">
@@ -84,7 +85,11 @@
                 slideShowNoFiles: true,
                 durationInput: 5,
                 autoplayEnabled: true,
-                showOptions: false
+                showOptions: false,
+                pusherRes: {
+                    slideShowActive: false,
+                    url: ""
+                }
             }
         },
         mounted () {
@@ -110,11 +115,13 @@
         },
         methods: {
             openChannelListener: function () {
-               var channel = window.pusher.subscribe(this.roomTitle);
+                var app = this;
+                var channel = window.pusher.subscribe(this.roomTitle);
 
-               channel.bind('slide-show-start', (data) => {
-                   console.log(data);
-               });
+                channel.bind('slide-show-start', (data) => {
+                    app.pusherRes.slideShowActive = data.slide_show_started;
+                    app.pusherRes.url = data.url;
+                });
             },
             addNewFile: function (e) {
                 var file = {
@@ -152,13 +159,16 @@
                 });
             },
             startNewSlideshow: function () {
-                this.$http.post('/bridge/pusher/slideshow', {'roomTitle': this.roomTitle, 'url': this.currentFiles[0].url}).then((success_res)=> {
-                    this.pusherRes
-                }, (error_res) => {
-                    console.log(error_res);
-                });
                 if( this.currentFiles.length > 0 ) {
-                    this.slideShowStarted = true;
+                    var data = {'roomTitle': this.roomTitle, 'url': this.currentFiles[0].url};
+
+                    this.$http.post('/bridge/pusher/slideshow/start', data).then((success_res)=> {
+                        // this.pusherRes.url = success_res.url;
+                        // this.pusherRes.slideShowStarted = success_res.slide_show_starded;
+                    }, (error_res) => {
+                        console.log(error_res);
+                    });
+
                 }
             }
         }
