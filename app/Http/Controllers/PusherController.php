@@ -49,4 +49,19 @@ class PusherController extends Controller
 
         return 'move slide ' . $direction;
     }
+
+    public function send_options(Request $request) {
+
+        $room            = $request->json('roomTitle');
+        $autoplayEnabled = $request->json('autoplay_enabled');
+        $autoplayTimer   = $request->json('autoplay_timer');
+
+        $pusher = App::make('pusher');
+
+        $pusher->trigger($room,
+            'slide-show-settings-changed',
+            array('autoplay_enabled' => $autoplayEnabled, 'autoplay_timer' => $autoplayTimer));
+
+        return 'settings changed';
+    }
 }

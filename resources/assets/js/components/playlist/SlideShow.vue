@@ -160,12 +160,20 @@ export default {
                 case "prev":
                     if (this.currentItemShowing > 1)
                         this.currentItemShowing--;
-                        // this.slideShowItems[this.currentItemShowing].classList.remove('active');
-                        // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
+                        var data = {
+                            "roomTitle": this.roomTitle,
+                            "url": this.currentFiles[this.currentItemShowing-2].url,
+                            "direction": "prev"
+                        }
+
+                        this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
+                            console.log('prev success', success_res);
+                        }, (error_res) => {
+                            console.log('next error');
+                        });
                     break;
                 case "next":
                     if (this.currentItemShowing < this.currentFiles.length) {
-                        console.log('next');
                         this.currentItemShowing++;
                         // this.slideShowItems[this.currentItemShowing-2].classList.remove('active');
                         // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
