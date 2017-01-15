@@ -7,7 +7,8 @@
             :current-files="currentFiles"
             :current-file="pusherRes.url"
             :duration="duration"
-            :auto-play="autoplayEnabled">
+            :auto-play="autoplayEnabled"
+            :owner-ID="ownerID">
         </slide-show>
         <!-- slideshow -->
 
@@ -91,15 +92,19 @@
                     slideShowActive: false,
                     url: ""
                 },
-                canStartSlideShow: true
+                canStartSlideShow: true,
+                ownerID: ""
             }
         },
         mounted () {
             window.addEventListener('successfull-upload', this.addNewFile);
             window.addEventListener('successfull-delete', this.deleteFileFromList);
 
+            this.makeOwnerId();
+
             this.openChannelListener();
             this.getAllFiles();
+
 
         },
         computed: {
@@ -124,6 +129,20 @@
             }
         },
         methods: {
+            makeOwnerId: function () {
+                if( !JSCookie.get('ownerID') ) {
+                    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                    for( var i=0; i < 20; i++ ) {
+                        this.ownerID += possible.charAt(Math.floor(Math.random() * possible.length));
+                    }
+
+                    JSCookie.set('ownerID', this.ownerID, { expires: 7 });
+                }
+                else {
+                    this.ownerID = JSCookie.get('ownerID');
+                }
+            },
             openChannelListener: function () {
                 var app = this;
                 var channel = window.pusher.subscribe(this.roomTitle);
@@ -212,7 +231,10 @@
 
                         this.pusherRes.url = this.currentFiles[0].url;
 
-                        var data = {'roomTitle': this.roomTitle};
+                        var data = {
+                            'roomTitle': this.roomTitle,
+                            'owner_id': this.ownerID
+                        };
 
                         this.$http.post('/bridge/pusher/slideshow/start', data).then((success_res)=> {
                             app.canStartSlideShow = false;

@@ -49,6 +49,9 @@ export default {
         },
         roomTitle: {
             type: String
+        },
+        ownerID: {
+            type: String
         }
     },
     data () {
@@ -114,7 +117,10 @@ export default {
             }
         },
         quitSlideShow: function () {
-            var data = {'roomTitle': this.roomTitle};
+            var data = {
+                'roomTitle': this.roomTitle,
+                'owner_id': this.ownerID
+            };
 
             this.$http.post('/bridge/pusher/slideshow/stop', data).then((success_res) => {
                 clearInterval(this.autoSliding);
@@ -163,15 +169,16 @@ export default {
                         if (this.currentItemShowing > 1)
                             this.currentItemShowing--;
                             var data = {
+                                "owner_id": this.ownerID,
                                 "roomTitle": this.roomTitle,
                                 "url": this.currentFiles[this.currentItemShowing-1].url,
                                 "direction": "prev"
                             }
 
                             this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
-                                //console.log('prev success', success_res);
+                                console.log(success_res);
                             }, (error_res) => {
-                                //console.log('next error');
+                                console.log(error_res);
                             });
 
                     }
@@ -184,15 +191,16 @@ export default {
                             // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
 
                             var data = {
+                                "owner_id": this.ownerID,
                                 "roomTitle": this.roomTitle,
                                 "url": this.currentFiles[this.currentItemShowing-1].url,
                                 "direction": "next"
                             }
 
                             this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
-                                //console.log('next success', success_res);
+                                console.log(success_res);
                             }, (error_res) => {
-                                //console.log('next error');
+                                console.log(error_res);
                             });
                         }
                         else {
@@ -218,7 +226,6 @@ export default {
             this.canClick = true;
             clearInterval(this.autoSliding ); // clear interval to make sure it's not running anymore.
             this.autoSliding = setInterval(function () {
-                //console.log("Auto move has fired");
                 app.moveShow("next", "auto"); // call moveShow next, to go to the next slide.
             }, duration);
         }

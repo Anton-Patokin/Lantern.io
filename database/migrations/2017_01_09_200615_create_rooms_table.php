@@ -17,6 +17,8 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->text('title');
             $table->string('password')->nullable();
+            $table->boolean('is_active')->default(false);
+            $table->string('slideshow_owner')->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });
