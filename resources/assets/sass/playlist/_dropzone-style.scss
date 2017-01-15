@@ -1,7 +1,11 @@
+.dropzone-container {
+    width: 40%;
+}
+
 .dropzone {
     overflow-y: scroll;
     margin: auto;
-    min-width: 40%;
+    width: 100%;
     height: 100%;
     background-color: #f1f1f1;
     border-top-left-radius: 10px;
