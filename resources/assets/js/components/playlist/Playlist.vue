@@ -8,7 +8,7 @@
             :current-file="pusherRes.url"
             :duration="duration"
             :auto-play="autoplayEnabled"
-            :owner-ID="ownerID">
+            :owner-id="ownerID">
         </slide-show>
         <!-- slideshow -->
 
