@@ -106,7 +106,9 @@ export default {
                     app.quitSlideShow();
             });
 
-            window.onbeforeunload = this.quitSlideShow();
+            $(window).on('beforeunload', function() {
+                app.quitSlideShow();
+            });
 
 
         },
