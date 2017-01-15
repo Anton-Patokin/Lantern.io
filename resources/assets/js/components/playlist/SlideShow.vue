@@ -50,7 +50,7 @@ export default {
         roomTitle: {
             type: String
         },
-        ownerID: {
+        ownerId: {
             type: String
         }
     },
@@ -119,7 +119,7 @@ export default {
         quitSlideShow: function () {
             var data = {
                 'roomTitle': this.roomTitle,
-                'owner_id': this.ownerID
+                'owner_id': this.ownerId
             };
 
             this.$http.post('/bridge/pusher/slideshow/stop', data).then((success_res) => {
@@ -169,7 +169,7 @@ export default {
                         if (this.currentItemShowing > 1)
                             this.currentItemShowing--;
                             var data = {
-                                "owner_id": this.ownerID,
+                                "owner_id": this.ownerId,
                                 "roomTitle": this.roomTitle,
                                 "url": this.currentFiles[this.currentItemShowing-1].url,
                                 "direction": "prev"
@@ -191,7 +191,7 @@ export default {
                             // this.slideShowItems[this.currentItemShowing-1].classList.add('active');
 
                             var data = {
-                                "owner_id": this.ownerID,
+                                "owner_id": this.ownerId,
                                 "roomTitle": this.roomTitle,
                                 "url": this.currentFiles[this.currentItemShowing-1].url,
                                 "direction": "next"
