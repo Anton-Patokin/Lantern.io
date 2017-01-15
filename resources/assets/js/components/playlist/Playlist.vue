@@ -101,6 +101,7 @@
             window.addEventListener('successfull-delete', this.deleteFileFromList);
 
             this.makeOwnerId();
+            this.checkIfSlideshowActive();
 
             this.openChannelListener();
             this.getAllFiles();
@@ -143,11 +144,24 @@
                     this.ownerID = JSCookie.get('ownerID');
                 }
             },
+            checkIfSlideshowActive: function () {
+                var data = {
+                    'roomTitle': this.roomTitle
+                };
+
+                this.$http.post('/bridge/pusher/slideshow/active', data).then((success_res) => {
+                    this.pusherRes.slideShowActive = success_res.body.is_active;
+                    this.pusherRes.url = success_res.body.current_img;
+                }, (error_res) => {
+                    console.log(error_res);
+                });
+            },
             openChannelListener: function () {
                 var app = this;
                 var channel = window.pusher.subscribe(this.roomTitle);
 
                 channel.bind('slide-show-active', (data) => {
+                    app.pusherRes.url = data.first_img;
                     app.pusherRes.slideShowActive = data.slide_show_started;
                 });
 
@@ -233,7 +247,8 @@
 
                         var data = {
                             'roomTitle': this.roomTitle,
-                            'owner_id': this.ownerID
+                            'owner_id': this.ownerID,
+                            'first_img': this.currentFiles[0].url
                         };
 
                         this.$http.post('/bridge/pusher/slideshow/start', data).then((success_res)=> {

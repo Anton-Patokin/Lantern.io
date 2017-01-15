@@ -13,19 +13,21 @@ class PusherController extends Controller
 
         $room     = $request->json('roomTitle');
         $ownerId  = $request->json('owner_id');
+        $firstImg = $request->json('first_img');
         $isActive = true;
 
         $roomDB = Room::where('title', $room)->first();
 
         $roomDB->is_active = $isActive;
         $roomDB->slideshow_owner = $ownerId;
+        $roomDB->current_img = $firstImg;
 
         if( $roomDB->save() ) {
             $pusher = App::make('pusher');
 
             $pusher->trigger($room,
                 'slide-show-active',
-                array('slide_show_started' => $isActive));
+                array('slide_show_started' => $isActive, 'first_img' => $firstImg));
 
             return Response::json(array('error' => false, 'slideshow_active' => true), 200);
         }
@@ -45,6 +47,7 @@ class PusherController extends Controller
         if ( $roomDB->slideshow_owner == $ownerID ) {
             $roomDB->is_active = $isActive;
             $roomDB->slideshow_owner = null;
+            $roomDB->current_img = null;
 
             if ( $roomDB->save() ) {
                 $pusher = App::make('pusher');
@@ -70,7 +73,9 @@ class PusherController extends Controller
 
         $roomDB = Room::where('title', $room)->first();
 
-        if ( $roomDB->owner_id == $ownerID ) {
+        $roomDB->current_img = $url;
+
+        if ( $roomDB->slideshow_owner == $ownerID && $roomDB->save()) {
             $pusher = App::make('pusher');
 
             $pusher->trigger($room,
@@ -97,5 +102,14 @@ class PusherController extends Controller
             array('autoplay_enabled' => $autoplayEnabled, 'autoplay_timer' => $autoplayTimer));
 
         return 'settings changed';
+    }
+
+    public function is_active (Request $request) {
+
+        $room = $request->json('roomTitle');
+
+        $roomDB = Room::where('title', $room)->first();
+
+        return Response::json(array('is_active' => $roomDB->is_active, 'current_img' => $roomDB->current_img));
     }
 }
