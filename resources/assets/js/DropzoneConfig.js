@@ -17,7 +17,7 @@ Dropzone.options.realDropzone = {
         this.on("removedfile", function (file) {
             $.ajax({
                 type: 'POST',
-                url: '/file/delete',
+                url: '/api/file/delete',
                 data: {room_title: roomTitle, title: file.filename, id: file.id},
                 dataType: 'html',
                 headers: {
@@ -41,7 +41,7 @@ Dropzone.options.realDropzone = {
             });
 
         });
-        
+
     },
     renameFilename: function (filename) {
         var randomString = "";

@@ -1,5 +1,5 @@
 <div class="dropzone-container">
-    {{ Form::open(array('url' => 'file/upload',
+    {{ Form::open(array('url' => '/api/file/upload',
     'method' => 'post',
     'class' => 'dropzone needsclick dz-clickable',
     'id'=>'realDropzone'))
