@@ -3,6 +3,7 @@ window._ = require('lodash');
 
 window.Dropzone = require('./dropzone.js');
 
+window.JSCookie = require('js-cookie');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

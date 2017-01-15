@@ -41,6 +41,7 @@ Dropzone.options.realDropzone = {
             });
 
         });
+        
     },
     renameFilename: function (filename) {
         var randomString = "";
