@@ -70,6 +70,8 @@ class PusherController extends Controller
 
         $roomDB = Room::where('title', $room)->first();
 
+        dd($roomDB->owner_id);
+
         if ( $roomDB->owner_id == $ownerID ) {
             $pusher = App::make('pusher');
 
