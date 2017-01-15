@@ -165,6 +165,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,//custom
         'Chumper\Zipper\ZipperServiceProvider', //custom
         Vinkla\Pusher\PusherServiceProvider::class,//custom
+        Intervention\Image\ImageServiceProvider::class,// custom
 
         /*
          * Package Service Providers...
@@ -232,6 +233,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,//custom
         'Uuid' => Webpatser\Uuid\Uuid::class,//custom
         'Zipper' => 'Chumper\Zipper\Zipper', //custom
+        'Image' => Intervention\Image\Facades\Image::class, //custom
 
     ],
 

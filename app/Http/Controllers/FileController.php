@@ -12,6 +12,7 @@ use Response;
 use File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
+use Image;
 
 
 class FileController extends Controller
@@ -58,10 +59,27 @@ class FileController extends Controller
 
                 // uploading file to given path
                 if ($file->move($destinationPath, $fileName)) {
+
+                    $dimension = getimagesize($destinationPath . '/' . $fileName);
+                    $max_with = "1920";
+                    $maw_height = "1080";
+                    if ($dimension[0] > $max_with || $dimension[1] > $maw_height) {
+                        if($dimension[0]>$dimension[1]){
+                            $save_percent = round(100/$dimension[0]*$max_with)/100;
+                            $maw_height =round($save_percent*$dimension[1]);
+                        }else{
+                            $save_percent = round(100/$dimension[1]*$maw_height)/100;
+                            $max_with =round($save_percent*$dimension[0]);
+                        }
+                        Image::make(public_path($destinationPath . '/' . $fileName))
+                            ->resize($max_with, $maw_height)->save($destinationPath . '/' . $fileName);
+                    }
+
+
                     //only save document info after upload is done
                     $document = new Document();
                     $document->title = $file->getClientOriginalName();
-                    $document->url =  $destinationPath . "/" . $fileName;
+                    $document->url = $destinationPath . "/" . $fileName;
                     $document->type = $extension;
                     $document->room_id = $room->id;
 

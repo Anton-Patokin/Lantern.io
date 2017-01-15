@@ -8,6 +8,7 @@ Use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Cookie;
 
+
 class AccesRoom
 {
 
@@ -20,7 +21,6 @@ class AccesRoom
      */
     public function handle($request, Closure $next)
     {
-      
         $room = Room::where('title', $request->route('title'))->first();
         if ($room) {
             if (isset($room->password) && $room->password != "") {
@@ -28,7 +28,6 @@ class AccesRoom
             };
             return $next($request);
         }
-        Session::put('error', 'Room not found!');
         return redirect('/');
     }
 }
