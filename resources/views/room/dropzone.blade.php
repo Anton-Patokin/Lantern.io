@@ -12,7 +12,7 @@
             <h1>Drop it like it's hot!</h1>
         </div>
         <br />
-        <span class="note">(Your images are uploaded as soon as you drop them. Max. size 25MB)</span>
+        <span class="note">(Drop your images <span class="text-">here</span>. They are uploaded as soon as you drop them. Max. size 8MB)</span>
     </div>
 
     {{-- if user has js disabled --}}
