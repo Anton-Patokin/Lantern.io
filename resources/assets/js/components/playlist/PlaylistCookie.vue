@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="playlist-cookie" v-if="!isCookieSet">
         <div class="playlist-cookie-modal">
-            <span class="close-icon"><i class="fa fa-times"></i></span>
+            <span class="close-icon"><i class="fa fa-times" @click="setCookie"></i></span>
             <h1><span class="lantern">lantern.<span class="text-orange">io</span></span> playlists</h1>
             <h2>Overview of all the features:</h2>
             <ul>
