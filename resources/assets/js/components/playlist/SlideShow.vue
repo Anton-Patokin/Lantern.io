@@ -62,7 +62,8 @@ export default {
             isFullscreen: false,
             slideShowEl: null,
             autoSliding: null,
-            canClick: true
+            canClick: true,
+            apiPrefix: '/api/'
         }
     },
     mounted () {
