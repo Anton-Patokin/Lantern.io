@@ -99,6 +99,7 @@ class RoomController extends Controller
             $files = glob(public_path('uploads\\' . $find_room->title . '\*'));
             $path_name = 'uploads\\' . $find_room->title . '\\' . $find_room->title . '.zip';
 
+        
             if (file_exists($path_name)) {
                 return response()->download(public_path($path_name))->deleteFileAfterSend(true);
             } else {
