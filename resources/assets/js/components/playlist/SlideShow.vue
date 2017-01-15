@@ -108,6 +108,7 @@ export default {
 
             $(window).on('beforeunload', function() {
                 app.quitSlideShow();
+                return 'When you leave this page the slideshow will be stopped.';
             });
 
 
