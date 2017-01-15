@@ -27,6 +27,7 @@ $(document).ready(function () {
 
 Vue.component("MainPage", require('./components/MainPage.vue'));
 Vue.component("Playlist", require('./components/playlist/Playlist.vue'));
+Vue.component("PlaylistCookie", require('./components/playlist/PlaylistCookie.vue'));
 Vue.component("SlideShow", require('./components/playlist/SlideShow.vue'));
 Vue.component("MainFooter", require('./components/Footer.vue'));
 

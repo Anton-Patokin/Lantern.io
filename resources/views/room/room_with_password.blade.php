@@ -3,6 +3,9 @@
     @include('hero.playlist-room-hero')
 
     <div class="playlist-body">
+        <playlist-cookie
+            :csrf-token="'{{ csrf_token() }}'">
+        </playlist-cookie>
         @if(!isset($documents))
             @include('room.room-dropzone')
         @else
