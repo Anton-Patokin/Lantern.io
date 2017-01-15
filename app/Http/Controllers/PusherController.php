@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
