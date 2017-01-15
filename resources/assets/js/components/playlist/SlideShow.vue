@@ -122,7 +122,7 @@ export default {
                 'owner_id': this.ownerId
             };
 
-            this.$http.post('/bridge/pusher/slideshow/stop', data).then((success_res) => {
+            this.$http.post(this.apiPrefix + 'bridge/pusher/slideshow/stop', data).then((success_res) => {
                 clearInterval(this.autoSliding);
             }, (error_res) => {
                 alert("Can't stop the slideshow");
@@ -175,7 +175,7 @@ export default {
                                 "direction": "prev"
                             }
 
-                            this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
+                            this.$http.post(this.apiPrefix + 'bridge/pusher/slideshow/move', data).then((success_res) => {
                                 console.log(success_res);
                             }, (error_res) => {
                                 console.log(error_res);
@@ -197,7 +197,7 @@ export default {
                                 "direction": "next"
                             }
 
-                            this.$http.post('/bridge/pusher/slideshow/move', data).then((success_res) => {
+                            this.$http.post(this.apiPrefix + 'bridge/pusher/slideshow/move', data).then((success_res) => {
                                 console.log(success_res);
                             }, (error_res) => {
                                 console.log(error_res);

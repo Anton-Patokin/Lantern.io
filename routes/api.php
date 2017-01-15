@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,8 +11,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+// all events
+Route::post('/bridge/pusher/slideshow/start', 'PusherController@start_slideshow');
+Route::post('/bridge/pusher/slideshow/stop', 'PusherController@stop_slideshow');
+Route::post('/bridge/pusher/slideshow/move', 'PusherController@move_slide');
+Route::post('/bridge/pusher/slideshow/options', 'PusherController@send_options');
+Route::post('/bridge/pusher/slideshow/active', 'PusherController@is_active');
 
+// delete
+Route::post('/file/delete ', 'FileController@file_delete');
+
+// upload
+Route::post('/file/upload', 'FileController@file_upload');
+
+// get all files
 Route::get('/{title}/get-files', 'RoomController@get_documents_room');

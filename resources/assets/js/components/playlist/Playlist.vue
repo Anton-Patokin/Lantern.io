@@ -93,7 +93,8 @@
                     url: ""
                 },
                 canStartSlideShow: true,
-                ownerID: ""
+                ownerID: "",
+                apiPrefix: '/api/'
             }
         },
         mounted () {
@@ -149,7 +150,7 @@
                     'roomTitle': this.roomTitle
                 };
 
-                this.$http.post('/bridge/pusher/slideshow/active', data).then((success_res) => {
+                this.$http.post(this.apiPrefix + 'bridge/pusher/slideshow/active', data).then((success_res) => {
                     this.pusherRes.slideShowActive = success_res.body.is_active;
                     this.pusherRes.url = success_res.body.current_img;
                 }, (error_res) => {
@@ -195,7 +196,7 @@
                     'autoplay_timer': this.durationInput
                 }
 
-                this.$http.post('/bridge/pusher/slideshow/options', data).then((success_res) => {
+                this.$http.post(this.apiPrefix + 'bridge/pusher/slideshow/options', data).then((success_res) => {
                     this.showOptions = false;
                 }, (error_res) => {
                     this.showOptions = false;
@@ -219,7 +220,7 @@
                 }
             },
             getAllFiles: function () {
-                this.$http.get('/api/' + this.roomTitle + '/get-files' ).then((success_res) => {
+                this.$http.get(this.apiPrefix + this.roomTitle + '/get-files' ).then((success_res) => {
                     this.currentFiles = success_res.body;
                     // this.pusherRes.url = this.currentFiles[0].url;
                 }, (error_res) => {
@@ -231,7 +232,7 @@
                     room_title: this.roomTitle,
                     title: name
                 }
-                this.$http.post('/file/delete', this.fileDetails).then((success_res) => {
+                this.$http.post(this.apiPrefix + 'file/delete', this.fileDetails).then((success_res) => {
                     console.log(success_res);
                     this.getAllFiles()
                 }, (error_res) => {
@@ -251,7 +252,7 @@
                             'first_img': this.currentFiles[0].url
                         };
 
-                        this.$http.post('/bridge/pusher/slideshow/start', data).then((success_res)=> {
+                        this.$http.post(this.apiPrefix + 'bridge/pusher/slideshow/start', data).then((success_res)=> {
                             app.canStartSlideShow = false;
                             setTimeout(() => {
                                 app.canStartSlideShow = true;
