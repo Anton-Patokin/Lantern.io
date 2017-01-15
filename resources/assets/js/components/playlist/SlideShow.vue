@@ -105,6 +105,10 @@ export default {
                 if(e.keyCode === 27)
                     app.quitSlideShow();
             });
+
+            window.onbeforeunload = this.quitSlideShow();
+
+
         },
         initSlideShow: function () {
             // setup the slideshow first item

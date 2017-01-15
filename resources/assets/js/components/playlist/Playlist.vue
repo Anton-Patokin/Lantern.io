@@ -106,7 +106,7 @@
 
             this.openChannelListener();
             this.getAllFiles();
-
+            
 
         },
         computed: {
