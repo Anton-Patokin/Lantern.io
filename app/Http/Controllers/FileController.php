@@ -62,17 +62,18 @@ class FileController extends Controller
 
                     $dimension = getimagesize($destinationPath . '/' . $fileName);
                     $max_with = "1920";
-                    $maw_height = "1080";
-                    if ($dimension[0] > $max_with || $dimension[1] > $maw_height) {
-                        if($dimension[0]>$dimension[1]){
+                    $max_height = "1080";
+                    if ($dimension[0] > $max_with) {
                             $save_percent = round(100/$dimension[0]*$max_with)/100;
-                            $maw_height =round($save_percent*$dimension[1]);
-                        }else{
-                            $save_percent = round(100/$dimension[1]*$maw_height)/100;
-                            $max_with =round($save_percent*$dimension[0]);
-                        }
+                            $max_height =round($save_percent*$dimension[1]);
                         Image::make(public_path($destinationPath . '/' . $fileName))
-                            ->resize($max_with, $maw_height)->save($destinationPath . '/' . $fileName);
+                            ->resize($max_with, $max_height)->save($destinationPath . '/' . $fileName);
+                    }
+                    if($dimension[1] > $max_height){
+                        $save_percent = round(100/$dimension[1]*$max_height)/100;
+                        $max_with =round($save_percent*$dimension[0]);
+                        Image::make(public_path($destinationPath . '/' . $fileName))
+                            ->resize($max_with, $max_height)->save($destinationPath . '/' . $fileName);
                     }
 
 
